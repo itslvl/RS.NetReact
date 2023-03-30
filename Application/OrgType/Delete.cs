@@ -1,3 +1,4 @@
+using Application.Core;
 using MediatR;
 using Persistence;
 
@@ -5,11 +6,11 @@ namespace Application.OrgType
 {
     public class Delete
     {
-        public class Command : IRequest
+        public class Command : IRequest<Result<Unit>>
         {
             public Guid Id { get; set; }
         }
-        public class Handler : IRequestHandler<Command>
+        public class Handler : IRequestHandler<Command, Result<Unit>>
         {
             private readonly AppDbContext _context;
             public Handler(AppDbContext context)
@@ -17,12 +18,14 @@ namespace Application.OrgType
                 _context = context;
             }
 
-            public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
                 var r = await _context.ROrgType.FindAsync(request.Id);
+                if (r == null) return null;
                 _context.Remove(r);
-                await _context.SaveChangesAsync();
-                return Unit.Value;
+                var ret = await _context.SaveChangesAsync() > 0;
+                if (!ret) return Result<Unit>.Failure("Fail to delete the organization type");
+                return Result<Unit>.Success( Unit.Value);
             }
         }
     }

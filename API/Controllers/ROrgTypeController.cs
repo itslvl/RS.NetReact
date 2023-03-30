@@ -18,10 +18,11 @@ namespace API.Controllers
         // [HttpGet(Name = "GetWeatherForecast")]
 
         [HttpGet]
-        public async Task<List<ROrgType>> GetOrgTypeList()
+        public async Task<IActionResult> GetOrgTypeList()
         {
-            var rr = await Mediator.Send(new List.Query());
-            return rr;
+            return HandleResult(await Mediator.Send(new List.Query()));
+            // var rr = await Mediator.Send(new List.Query());
+            // return rr;
         }
 
         [HttpGet("{id}")]
@@ -29,27 +30,34 @@ namespace API.Controllers
         {
             // var rr = await _context.ROrgType.FindAsync(id);
             // if (rr == null) return await _context.ROrgType.FirstOrDefaultAsync();
-            return await Mediator.Send(new Details.Query { Id = id });
+            // var ret = await Mediator.Send(new Details.Query { Id = id });
+            return HandleResult(await Mediator.Send(new Details.Query { Id = id }));
+            // if (ret.IsSuccess && ret.Value != null) return Ok(ret.Value);
+            // if (ret.IsSuccess && ret.Value == null) return NotFound();
+            // return BadRequest(ret.Error);
+            // var ret = await Mediator.Send(new Details.Query { Id = id });
+            // if (ret == null) return NotFound();
+            // return ret;
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateOrgType(ROrgType rOrgType)
         {
-            return Ok(await Mediator.Send(new Create.Command { ROrgType = rOrgType }));
+            return HandleResult(await Mediator.Send(new Create.Command { ROrgType = rOrgType }));
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> EditOrgType(Guid id, ROrgType rOrgType)
         {
             rOrgType.Id = id;
-            return Ok(await Mediator.Send(new Edit.Command { ROrgType = rOrgType }));
+            return HandleResult(await Mediator.Send(new Edit.Command { ROrgType = rOrgType }));
         }
 
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrgType(Guid id)
         {
-            return Ok(await Mediator.Send(new Delete.Command { Id = id }));
+            return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
         }
 
     }
