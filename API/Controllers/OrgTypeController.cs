@@ -1,9 +1,9 @@
-using Application.OrgType;
-using Domain.R;
+using Application.AppOrgType;
+using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Persistence;
+// using Persistence;
 
 namespace API.Controllers
 {
@@ -26,7 +26,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ROrgType>> GetOrgTypeById(Guid id)
+        public async Task<ActionResult<OrgType>> GetOrgTypeById(Guid id)
         {
             // var rr = await _context.ROrgType.FindAsync(id);
             // if (rr == null) return await _context.ROrgType.FirstOrDefaultAsync();
@@ -41,16 +41,16 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateOrgType(ROrgType rOrgType)
+        public async Task<IActionResult> CreateOrgType(OrgType orgType)
         {
-            return HandleResult(await Mediator.Send(new Create.Command { ROrgType = rOrgType }));
+            return HandleResult(await Mediator.Send(new Create.Command { OrgType = orgType }));
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditOrgType(Guid id, ROrgType rOrgType)
+        public async Task<IActionResult> EditOrgType(Guid id, OrgType orgType)
         {
-            rOrgType.Id = id;
-            return HandleResult(await Mediator.Send(new Edit.Command { ROrgType = rOrgType }));
+            orgType.Id = id;
+            return HandleResult(await Mediator.Send(new Edit.Command { OrgType = orgType }));
         }
 
 

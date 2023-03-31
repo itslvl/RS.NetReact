@@ -2,7 +2,7 @@ using Application.Core;
 using MediatR;
 using Persistence;
 
-namespace Application.OrgType
+namespace Application.AppOrgType
 {
     public class Delete
     {
@@ -20,7 +20,7 @@ namespace Application.OrgType
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var r = await _context.ROrgType.FindAsync(request.Id);
+                var r = await _context.OrgType.FindAsync(request.Id);
                 if (r == null) return null;
                 _context.Remove(r);
                 var ret = await _context.SaveChangesAsync() > 0;

@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ROrgType",
+                name: "OrgType",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -24,11 +24,11 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ROrgType", x => x.Id);
+                    table.PrimaryKey("PK_OrgType", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ROrg",
+                name: "Org",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -42,17 +42,17 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ROrg", x => x.Id);
+                    table.PrimaryKey("PK_Org", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ROrg_ROrgType_OrgTypeId",
+                        name: "FK_Org_OrgType_OrgTypeId",
                         column: x => x.OrgTypeId,
-                        principalTable: "ROrgType",
+                        principalTable: "OrgType",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ROrg_OrgTypeId",
-                table: "ROrg",
+                name: "IX_Org_OrgTypeId",
+                table: "Org",
                 column: "OrgTypeId");
         }
 
@@ -60,10 +60,10 @@ namespace Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ROrg");
+                name: "Org");
 
             migrationBuilder.DropTable(
-                name: "ROrgType");
+                name: "OrgType");
         }
     }
 }

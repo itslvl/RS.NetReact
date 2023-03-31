@@ -12,8 +12,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230326125347_Initial")]
-    partial class Initial
+    [Migration("20230331131640_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.R.ROrg", b =>
+            modelBuilder.Entity("Domain.Org", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -57,10 +57,10 @@ namespace Persistence.Migrations
 
                     b.HasIndex("OrgTypeId");
 
-                    b.ToTable("ROrg");
+                    b.ToTable("Org");
                 });
 
-            modelBuilder.Entity("Domain.R.ROrgType", b =>
+            modelBuilder.Entity("Domain.OrgType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -79,17 +79,16 @@ namespace Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("SaveDate")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ROrgType");
+                    b.ToTable("OrgType");
                 });
 
-            modelBuilder.Entity("Domain.R.ROrg", b =>
+            modelBuilder.Entity("Domain.Org", b =>
                 {
-                    b.HasOne("Domain.R.ROrgType", "OrgType")
+                    b.HasOne("Domain.OrgType", "OrgType")
                         .WithMany()
                         .HasForeignKey("OrgTypeId");
 

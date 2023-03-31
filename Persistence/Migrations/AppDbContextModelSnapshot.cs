@@ -22,7 +22,7 @@ namespace Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.R.ROrg", b =>
+            modelBuilder.Entity("Domain.Org", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -54,10 +54,10 @@ namespace Persistence.Migrations
 
                     b.HasIndex("OrgTypeId");
 
-                    b.ToTable("ROrg");
+                    b.ToTable("Org");
                 });
 
-            modelBuilder.Entity("Domain.R.ROrgType", b =>
+            modelBuilder.Entity("Domain.OrgType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -76,17 +76,16 @@ namespace Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("SaveDate")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ROrgType");
+                    b.ToTable("OrgType");
                 });
 
-            modelBuilder.Entity("Domain.R.ROrg", b =>
+            modelBuilder.Entity("Domain.Org", b =>
                 {
-                    b.HasOne("Domain.R.ROrgType", "OrgType")
+                    b.HasOne("Domain.OrgType", "OrgType")
                         .WithMany()
                         .HasForeignKey("OrgTypeId");
 

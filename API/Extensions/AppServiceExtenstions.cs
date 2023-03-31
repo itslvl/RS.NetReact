@@ -1,5 +1,5 @@
 using Application.Core;
-using Application.OrgType;
+using Application.AppOrgType;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;

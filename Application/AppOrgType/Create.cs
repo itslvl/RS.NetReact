@@ -1,22 +1,22 @@
 using Application.Core;
-using Domain.R;
+using Domain;
 using FluentValidation;
 using MediatR;
 using Persistence;
 
-namespace Application.OrgType
+namespace Application.AppOrgType
 {
     public class Create
     {
         public class Command : IRequest<Result<Unit>>   
         {
-            public ROrgType ROrgType { get; set; }
+            public OrgType OrgType { get; set; }
         }
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
             {
-                RuleFor(a => a.ROrgType).SetValidator(new OrgTypeValidator());
+                RuleFor(a => a.OrgType).SetValidator(new OrgTypeValidator());
             }
         }
         public class Handler : IRequestHandler<Command, Result<Unit>>
@@ -29,7 +29,7 @@ namespace Application.OrgType
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                _context.ROrgType.Add(request.ROrgType);
+                _context.OrgType.Add(request.OrgType);
                 var ret = await _context.SaveChangesAsync() > 0;
                 if (!ret) return Result<Unit>.Failure("Fail to create Organization Type");
                 return Result<Unit>.Success(Unit.Value);

@@ -1,23 +1,23 @@
 using Application.Core;
 using AutoMapper;
-using Domain.R;
+using Domain;
 using FluentValidation;
 using MediatR;
 using Persistence;
 
-namespace Application.OrgType
+namespace Application.AppOrgType
 {
     public class Edit
     {
         public class Command : IRequest<Result<Unit>>
         {
-            public ROrgType ROrgType { get; set; }
+            public OrgType OrgType { get; set; }
         }
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
             {
-                RuleFor(a => a.ROrgType).SetValidator(new OrgTypeValidator());
+                RuleFor(a => a.OrgType).SetValidator(new OrgTypeValidator());
             }
         }
         public class Handler : IRequestHandler<Command, Result<Unit>>
@@ -32,10 +32,10 @@ namespace Application.OrgType
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var r = await _context.ROrgType.FindAsync(request.ROrgType.Id);
+                var r = await _context.OrgType.FindAsync(request.OrgType.Id);
                 if (r == null) return null;
                 // r.Definition = request.ROrgType.Definition ?? r.Definition;
-                _mapper.Map(request.ROrgType, r);
+                _mapper.Map(request.OrgType, r);
                 var ret = await _context.SaveChangesAsync() > 0;
                 if (!ret) return Result<Unit>.Failure("Fail to update organization type");
                 return Result<Unit>.Success(Unit.Value);

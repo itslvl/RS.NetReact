@@ -1,16 +1,14 @@
-using Domain.R;
+using Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence
 {
     public class AppDbContext : DbContext
     {
-        // public ApplicationDBContext(DbContextOptions options) : base(options)
-        public AppDbContext(DbContextOptions  options) : base(options)
+        public AppDbContext(DbContextOptions options) : base(options)
         {
         }
-        public DbSet<ROrgType>  ROrgType { get; set; }
-        public DbSet<ROrg> ROrg { get; set; }
-        // public DbSet<RTerritory> RTerritory { get; set; }
+        public DbSet<OrgType> OrgType { get; set; }
+        public DbSet<Org> Org { get; set; }
     }
 }

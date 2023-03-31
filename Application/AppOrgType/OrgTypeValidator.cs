@@ -1,9 +1,10 @@
-using Domain.R;
+using Domain;
 using FluentValidation;
+// using Domain;
 
-namespace Application.OrgType
+namespace Application.AppOrgType
 {
-    public class OrgTypeValidator : AbstractValidator<ROrgType>
+    public class OrgTypeValidator : AbstractValidator<OrgType>
     {
         public OrgTypeValidator()
         {

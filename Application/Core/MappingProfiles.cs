@@ -1,5 +1,5 @@
 using AutoMapper;
-using Domain.R;
+using Domain;
 
 namespace Application.Core
 {
@@ -7,7 +7,7 @@ namespace Application.Core
     {
         public MappingProfiles()
         {
-            CreateMap<ROrgType, ROrgType>();
+            CreateMap<OrgType, OrgType>();
         }
     }
 }
