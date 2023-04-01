@@ -1,6 +1,7 @@
 using Application.AppOrgType;
 using Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 // using Persistence;
@@ -25,6 +26,7 @@ namespace API.Controllers
             // return rr;
         }
 
+        // [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<OrgType>> GetOrgTypeById(Guid id)
         {
