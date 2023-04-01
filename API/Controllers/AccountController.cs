@@ -59,14 +59,16 @@ namespace API.Controllers
             }
             return BadRequest(ret.Errors);
         }
-        [AllowAnonymous]
+        // [AllowAnonymous]
 
-        // [Authorize]
+        [Authorize]
         // [HttpGet("GetCurrentUser")]
         [HttpGet]
         public async Task<ActionResult<UserDTO>> GetCurrentUser()
         {
-            var user = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
+            var userName = User.FindFirstValue(ClaimTypes.Email);
+            var user = await _userManager.FindByNameAsync(userName);
+            // var user = await _userManager.FindByEmailAsync(ClaimTypes.Email);
             return CreateObjectDTO(user);
         }
 
