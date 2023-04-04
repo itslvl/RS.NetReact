@@ -9,21 +9,37 @@ import NavBar from './NavBar';
 import OrgTypeDashboard from '../../features/orgtype/dashboard/OrgTypeDashboard';
 
 function App() {
-  const [orgtype, setOrgtype] = useState<OrgType[]>([]);
+  const [orgTypes, setOrgTypes] = useState<OrgType[]>([]);
+  const [selectedOrgType, setSelectedOrgType] = useState<OrgType | undefined>(undefined);
+
   useEffect(() => {
     axios.get<OrgType[]>("http://localhost:5006/OrgType")
       .then(response => {
         console.log(response);
-        setOrgtype(response.data);
+        setOrgTypes(response.data);
       })
   }, [])
+
+  function handleSelectOrgType(id: string) {
+    setSelectedOrgType(orgTypes.find(a => a.id === id))
+  }
+
+  function handleCancelSelectOrgType() {
+    setSelectedOrgType(undefined);
+  }
+
   return (
     <>
       <NavBar />
       {/* <Container style={{marginTop: '5em'}}> */}
       {/* <Header as="h2" content="Organization Types" /> */}
-      <Container style={{marginTop: '5em'}}>
-        <OrgTypeDashboard orgtypes = {orgtype}/>
+      <Container style={{ marginTop: '5em' }}>
+        <OrgTypeDashboard
+          orgTypes={orgTypes}
+          selectedOrgType={selectedOrgType}
+          selectOrgType={handleSelectOrgType}
+          cancelSelectOrgType={handleCancelSelectOrgType}
+        />
       </Container>
 
     </>
