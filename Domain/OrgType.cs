@@ -12,4 +12,17 @@ namespace Domain
         public string Display { get; set; } = "";
         public string Definition { get; set; } = "";
     }
+
+
+    public class OrgTypeDTO
+    {
+        public string Code { get; set; } = "";
+        public string Display { get; set; } = "";
+        public string Definition { get; set; } = "";
+    }
+
+    public class RootObject
+    {
+        public List<OrgTypeDTO> concept { get; set; }
+    }
 }

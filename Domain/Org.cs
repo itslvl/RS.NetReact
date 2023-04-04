@@ -12,6 +12,7 @@ namespace Domain
         public Guid SSClientID { get; set; }
         public Guid SSClientSecret { get; set; }
         public string OrgName { get; set; } = "";
+        public Guid Parent { get; set; }
         public OrgType OrgType { get; set; }
 
     }
