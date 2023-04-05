@@ -1,13 +1,20 @@
-import React from 'react'
+import React, { SyntheticEvent, useState } from 'react'
 import { OrgType } from '../../../app/models/OrgType'
-import { Button, Divider, Grid, Item, Label, Segment } from 'semantic-ui-react';
+import { Button, Grid, Item, Segment } from 'semantic-ui-react';
 
 interface Props {
     orgTypes: OrgType[];
     selectOrgType: (id: string) => void;
+    deleteOrgType: (id: string) => void;
+    submitting: boolean;
 }
 
-export default function OrgTypeList({ orgTypes, selectOrgType }: Props) {
+export default function OrgTypeList({ orgTypes, selectOrgType, deleteOrgType, submitting }: Props) {
+    const [target, setTarget] = useState('');
+    function handleOrgTypeDelete( e: SyntheticEvent<HTMLButtonElement>, id: string) {
+        setTarget(e.currentTarget.name);
+        deleteOrgType(id);
+    }
     return (
         <Segment>
             {/* <Item.Group devided> */}
@@ -26,9 +33,16 @@ export default function OrgTypeList({ orgTypes, selectOrgType }: Props) {
                         </Item.Content>
                         <Item.Description>
                             <Grid>
-                                <Grid.Column width={14}>Definition: {orgType.definition}</Grid.Column>
-                                <Grid.Column width={2}>
+                                <Grid.Column width={12}>Definition: {orgType.definition}</Grid.Column>
+                                <Grid.Column width={4}>
                                     <Button onClick={() => selectOrgType(orgType.id)} floated='right' content='View' color='blue' />
+                                    <Button
+                                        name={orgType.id}
+                                        loading={submitting && target === orgType.id}
+                                        onClick={(e) => handleOrgTypeDelete(e, orgType.id)}
+                                        floated='right'
+                                        content='Delete'
+                                        color='red' />
                                 </Grid.Column>
                             </Grid>
                         </Item.Description>

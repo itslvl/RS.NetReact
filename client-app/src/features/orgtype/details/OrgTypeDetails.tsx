@@ -6,8 +6,12 @@ import { OrgType } from '../../../app/models/OrgType'
 interface Props {
     orgType: OrgType;
     cancelSelectOrgType: () => void;
+    openForm: (id: string) => void;
 }
-export default function OrgTypeDetails({ orgType, cancelSelectOrgType }: Props) {
+export default function OrgTypeDetails({
+    orgType,
+    cancelSelectOrgType,
+    openForm }: Props) {
     return (
         <Card fluid>
             <Image src='/assets/RSS1.png' />
@@ -24,7 +28,7 @@ export default function OrgTypeDetails({ orgType, cancelSelectOrgType }: Props) 
             </Card.Content>
             <Card.Content extra>
                 <Button.Group width='2'>
-                    <Button basic color='blue' content='Edit' />
+                    <Button  onClick={() => openForm(orgType.id)} basic color='blue' content='Edit' />
                     <Button onClick={cancelSelectOrgType} basic color='grey' content='Cancel' />
                 </Button.Group>
             </Card.Content>

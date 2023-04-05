@@ -11,22 +11,44 @@ interface Props {
     selectedOrgType: OrgType | undefined;
     selectOrgType: (id: string) => void;
     cancelSelectOrgType: () => void;
+    editMode: boolean;
+    openForm: (id: string) => void;
+    closeForm: () => void;
+    createOrEdit: (orgType: OrgType) => void;
+    deleteOrgType: (id: string) => void;
+    submitting: boolean;
 }
 export default function OrgTypeDashboard({
     orgTypes,
     selectedOrgType,
     selectOrgType,
-    cancelSelectOrgType }: Props) {
+    cancelSelectOrgType,
+    editMode,
+    openForm,
+    closeForm,
+    createOrEdit,
+    deleteOrgType,
+    submitting }: Props) {
     return (
         <>
-            {selectedOrgType &&
+            {selectedOrgType && !editMode &&
                 <OrgTypeDetails
                     orgType={selectedOrgType}
                     cancelSelectOrgType={cancelSelectOrgType}
+                    openForm={openForm}
                 />}
-            <OrgTypeForm />
-            <OrgTypeList orgTypes={orgTypes}
+            {editMode &&
+                <OrgTypeForm
+                    closeForm={closeForm}
+                    orgType={selectedOrgType}
+                    createOrEdit={createOrEdit} 
+                    submitting={submitting}
+                    />}
+            <OrgTypeList
+                orgTypes={orgTypes}
                 selectOrgType={selectOrgType}
+                deleteOrgType={deleteOrgType}
+                submitting={submitting}
             />
         </>
     )
