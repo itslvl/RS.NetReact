@@ -1,24 +1,32 @@
 import React, { SyntheticEvent, useState } from 'react'
 import { OrgType } from '../../../app/models/OrgType'
 import { Button, Grid, Item, Segment } from 'semantic-ui-react';
+import { useStore } from '../../../app/stores/Store';
+import { observer } from 'mobx-react-lite';
+import { Link } from 'react-router-dom';
 
-interface Props {
-    orgTypes: OrgType[];
-    selectOrgType: (id: string) => void;
-    deleteOrgType: (id: string) => void;
-    submitting: boolean;
-}
+// interface Props {
+//     orgTypes: OrgType[];
+//     // selectOrgType: (id: string) => void;
+//     deleteOrgType: (id: string) => void;
+//     submitting: boolean;
+// }
 
-export default function OrgTypeList({ orgTypes, selectOrgType, deleteOrgType, submitting }: Props) {
+// export default function OrgTypeList({ orgTypes, selectOrgType, deleteOrgType, submitting }: Props) {
+export default observer(function OrgTypeList() {
+    const { orgTypeStore } = useStore();
+    const { deleteOrgType, orgTypesByDate, loading } = orgTypeStore;
+
     const [target, setTarget] = useState('');
-    function handleOrgTypeDelete( e: SyntheticEvent<HTMLButtonElement>, id: string) {
+    function handleOrgTypeDelete(e: SyntheticEvent<HTMLButtonElement>, id: string) {
         setTarget(e.currentTarget.name);
         deleteOrgType(id);
     }
+
     return (
         <Segment>
             {/* <Item.Group devided> */}
-            {orgTypes.map(orgType => (
+            {orgTypesByDate.map(orgType => (
                 <Item key={orgType.id}>
                     <Item.Content >
                         <Item.Header as='a'>ID : {orgType.id}</Item.Header>
@@ -35,11 +43,16 @@ export default function OrgTypeList({ orgTypes, selectOrgType, deleteOrgType, su
                             <Grid>
                                 <Grid.Column width={12}>Definition: {orgType.definition}</Grid.Column>
                                 <Grid.Column width={4}>
-                                    <Button onClick={() => selectOrgType(orgType.id)} floated='right' content='View' color='blue' />
+                                    {/* <Buttonfloated='right' content='View' color='blue' /> */}
+                                    {/* <Button onClick={() => orgTypeStore.selectOrgType(orgType.id)}
+                                        floated='right' content='View' color='blue' /> */}
+                                    <Button as={Link} to={`/orgType/${orgType.id}`}
+                                        floated='right' content='View' color='green' />
                                     <Button
+                                        as={Link} to={`/orgType/${orgType.id}`}
                                         name={orgType.id}
-                                        loading={submitting && target === orgType.id}
-                                        onClick={(e) => handleOrgTypeDelete(e, orgType.id)}
+                                        loading={loading && target === orgType.id}
+                                        // onClick={(e) => handleOrgTypeDelete(e, orgType.id)}
                                         floated='right'
                                         content='Delete'
                                         color='red' />
@@ -57,4 +70,4 @@ export default function OrgTypeList({ orgTypes, selectOrgType, deleteOrgType, su
             {/* </Item.Group> */}
         </Segment>
     )
-}
+})
