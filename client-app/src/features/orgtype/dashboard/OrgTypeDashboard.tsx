@@ -5,6 +5,7 @@ import { useStore } from "../../../app/stores/Store";
 import { observer } from "mobx-react-lite";
 import LoadingComponent from "../../../app/layout/loadingComponent";
 import OrgTypeList from "./OrgTypeList";
+import OrgTypeFilters from "./OrgTypeFilters";
 // import {OrgType} from '../../../app/models/OrgType'
 
 // interface Props {
@@ -33,7 +34,7 @@ export default observer(function OrgTypeDashboard() {
 
     return (
         <>
-            <h2>Organization Type Filter</h2>
+            <OrgTypeFilters/>
             {/* {selectedOrgType && !editMode && <OrgTypeDetails />}
             {editMode && <OrgTypeForm />}
             <OrgTypeList /> */}

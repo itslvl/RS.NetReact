@@ -4,14 +4,6 @@ import agent from '../api/Agent';
 import { v4 as uuid } from 'uuid'
 
 export default class OrgTypeStore {
-    // code = 'code here!';
-    // constructor() {
-    //     makeObservable(this, {
-    //         code: observable,
-    //         setCode: action
-    //     })
-    // }
-    // orgTypes: OrgType[] = [];
     orgTypesReg = new Map<string, OrgType>();
     selectedOrgType: OrgType | undefined = undefined;
     editMode = false;
@@ -21,15 +13,23 @@ export default class OrgTypeStore {
     constructor() {
         makeAutoObservable(this)
     }
-    // setCode = () => {
-    //     this.code = this.code + '//';
-    // }
 
     get orgTypesByDate() {
         return Array.from(this.orgTypesReg.values()).sort((a, b) =>
             Date.parse(a.saveDate) - Date.parse(b.saveDate));
     }
 
+    get groupedOrgType () {
+        return Object.entries(
+            this.orgTypesByDate.reduce(( orgTypes, orgType) => {
+                const saveDate = orgType.saveDate;
+                orgTypes[saveDate] = orgTypes[saveDate] ? 
+                    [...orgTypes[saveDate], orgType] :
+                    [orgType]
+                return orgTypes;
+            }, {} as {[key: string] : OrgType[]})
+        )
+    }
     loadingOrgTypes = async () => {
         this.setLoadingInitial(true);
         try {
