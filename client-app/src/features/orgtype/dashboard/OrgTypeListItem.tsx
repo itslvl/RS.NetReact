@@ -3,6 +3,7 @@ import { Button, Grid, Item } from "semantic-ui-react";
 import { OrgType } from "../../../app/models/OrgType";
 import { Link } from "react-router-dom";
 import { useStore } from "../../../app/stores/Store";
+import {format} from 'date-fns';
 
 
 interface Props {
@@ -27,7 +28,7 @@ export default function OrgTypeListItem({orgType} : Props) {
                     <Grid>
                         <Grid.Column width={2}>Code: {orgType.code}</Grid.Column>
                         <Grid.Column width={4}>Display: {orgType.display}</Grid.Column>
-                        <Grid.Column width={6}>SaveDate: {orgType.saveDate}</Grid.Column>
+                        <Grid.Column width={6}>SaveDate: {format( orgType.saveDate!, 'yyyy-MM-dd')}</Grid.Column>
                         <Grid.Column width={2}>Delete: {orgType.deleted}</Grid.Column>
                     </Grid>
                 </Item.Content>

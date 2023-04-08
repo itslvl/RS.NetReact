@@ -2,6 +2,7 @@ import { makeAutoObservable, runInAction } from 'mobx'
 import { OrgType } from '../models/OrgType'
 import agent from '../api/Agent';
 import { v4 as uuid } from 'uuid'
+import { format } from 'date-fns';
 
 export default class OrgTypeStore {
     orgTypesReg = new Map<string, OrgType>();
@@ -16,13 +17,14 @@ export default class OrgTypeStore {
 
     get orgTypesByDate() {
         return Array.from(this.orgTypesReg.values()).sort((a, b) =>
-            Date.parse(a.saveDate) - Date.parse(b.saveDate));
+            a.saveDate!.getTime() - b.saveDate!.getTime());
     }
 
     get groupedOrgType () {
         return Object.entries(
             this.orgTypesByDate.reduce(( orgTypes, orgType) => {
-                const saveDate = orgType.saveDate;
+                // const saveDate = orgType.saveDate!.toISOString().split('T')[0];
+                const saveDate =  format( orgType.saveDate!, 'yyyy-MM-dd');
                 orgTypes[saveDate] = orgTypes[saveDate] ? 
                     [...orgTypes[saveDate], orgType] :
                     [orgType]
@@ -80,7 +82,8 @@ export default class OrgTypeStore {
     }
 
     private SetOrgType = (orgType: OrgType) => {
-        orgType.saveDate = orgType.saveDate.split('T')[0];
+        // orgType.saveDate = orgType.saveDate.split('T')[0];
+        orgType.saveDate =   new Date(orgType.saveDate!);
         this.orgTypesReg.set(orgType.id, orgType);
     }
     private GetOrgType = (id: string) => {

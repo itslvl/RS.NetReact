@@ -4,6 +4,7 @@ import { useStore } from '../../../app/stores/Store'
 import LoadingComponent from '../../../app/layout/loadingComponent';
 import { observer } from 'mobx-react-lite';
 import { Link, useParams } from 'react-router-dom';
+import format from 'date-fns/format';
 
 export default observer(function OrgTypeDetails() {
 
@@ -23,7 +24,7 @@ export default observer(function OrgTypeDetails() {
             <Card.Content>
                 <Card.Header>{orgType.id}</Card.Header>
                 <Card.Meta>
-                    <span >{orgType.saveDate}</span>
+                    <span >{format( orgType.saveDate!, 'yyyy-MM-dd h:mm aa')}</span>
                 </Card.Meta>
                 <Card.Description>
                     {orgType.definition}

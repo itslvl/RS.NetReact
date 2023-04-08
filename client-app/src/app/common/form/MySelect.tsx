@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function MySelect(props: Props) {
-    const [field, meta] = useField(props.name);
+    const [field, meta, helpers] = useField(props.name);
     return (
         <Form.Field error={meta.touched && !!meta.error}>
             <label>{props.label}</label>
@@ -18,8 +18,8 @@ export default function MySelect(props: Props) {
                 clearable
                 options={props.options}
                 value= {field.value || null}
-                // onChange={(e,d) => helpers.setValue(d.value)}
-                // onBlur={() => helpers.setTouched(true)}
+                onChange={(e,d) => helpers.setValue(d.value)}
+                onBlur={() => helpers.setTouched(true)}
                 placeholder={props.placeholder}
                 />
                 {meta.touched && meta.error ? (
