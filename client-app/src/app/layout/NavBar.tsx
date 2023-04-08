@@ -17,6 +17,7 @@ export default function NavBar() {
                     RS.NetReact App
                 </Menu.Item>
                 <Menu.Item as={NavLink} to='/OrgType' name='OrgType' />
+                <Menu.Item as={NavLink} to='/errors' name='Errors' />
                 <Menu.Item>
                     <Button as={NavLink} to='/createOrgType' positive content='Create OrgType' />
                 </Menu.Item>
