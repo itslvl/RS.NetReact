@@ -9,6 +9,7 @@ using System.Security.Claims;
 
 namespace API.Controllers
 {
+    [AllowAnonymous]
     [ApiController]
     [Route("[controller]")]
     public class AccountController : ControllerBase
@@ -20,7 +21,6 @@ namespace API.Controllers
             _tokenService = tokenService;
             _userManager = userManager;
         }
-        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
         {

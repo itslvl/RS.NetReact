@@ -4,6 +4,7 @@ import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import { Router } from '../router/Routes';
 import { Store } from '../stores/Store';
+import { User, UserFormValues } from '../models/User';
 // import { error } from 'console';
 
 const sleep = (delay: number) => {
@@ -78,8 +79,14 @@ const OrgTypes = {
     delete: (id: string) => request.delete<void>(`/orgtype/${id}`)
 
 }
+const Account = {
+    current: () => request.get<User>('/Account'),
+    login: (user: UserFormValues) => request.post<User>('/Account/Login', user),
+    register: (user: UserFormValues) => request.post<User>('/Account/register', user)
+}
 const agent = {
-    OrgTypes
+    OrgTypes,
+    Account
 }
 
 export default agent

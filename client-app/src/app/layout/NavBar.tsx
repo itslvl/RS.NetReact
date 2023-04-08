@@ -1,18 +1,20 @@
 // import react from 'react';
-import { Button, Container, Menu } from 'semantic-ui-react';
+import { Button, Container, Dropdown, DropdownItem, Image, Menu } from 'semantic-ui-react';
 // import { useStore } from '../stores/Store';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import { useStore } from '../stores/Store';
+import { observer } from 'mobx-react-lite';
 
 // interface Props{
 //     openForm: () => void;
 // }
 // export default function NavBar({openForm}: Props) {
-export default function NavBar() {
-    // const {orgTypeStore} = useStore();
+export default observer(function NavBar() {
+    const { userStore: { user, logout } } = useStore();
     return (
         <Menu inverted fixed='top'>
             <Container>
-                <Menu.Item as={NavLink}  to='/' header>
+                <Menu.Item as={NavLink} to='/' header>
                     <img src="/assets/sibolgalogo.png" alt="logo" style={{ marginRight: '10px' }} />
                     RS.NetReact App
                 </Menu.Item>
@@ -21,7 +23,16 @@ export default function NavBar() {
                 <Menu.Item>
                     <Button as={NavLink} to='/createOrgType' positive content='Create OrgType' />
                 </Menu.Item>
+                <Menu.Item position='right'>
+                    <Image src={user?.image || '/assets/user.png'} avatar spaced='right' />
+                    <Dropdown pointing='top left' text={user?.displayName}>
+                        <Dropdown.Menu>
+                            <Dropdown.Item as={Link} to={`/profile/${user?.userName}`} text='My Profile' icon='user' />
+                            <Dropdown.Item onClick={logout} text='Log-Out' icon='power' />
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </Menu.Item>
             </Container>
         </Menu>
     )
-}
+})
