@@ -14,17 +14,41 @@ export default class UserStore {
             Store.commonStore.setToken(user.token);
             runInAction(() => this.user = user);
             Router.navigate('/Stay');
-            console.log(user);            
+            // console.log(user);      
+            Store.modalStore.closeModal();      
         } catch (error) {
             throw error;
         }
     }
 
+    register = async (creds : UserFormValues) => {
+        try {
+            const user = await agent.Account.register(creds);
+            Store.commonStore.setToken(user.token);
+            runInAction(() => this.user = user);
+            Router.navigate('/Stay');
+            // console.log(user);      
+            Store.modalStore.closeModal();      
+        } catch (error) {
+            // console.log(error);      
+            throw error;
+
+        }
+    }
+
     logout = () => {
         Store.commonStore.setToken(null);
-        localStorage.removeItem('jwt');
+        // localStorage.removeItem('jwt');
         this.user = null;
         Router.navigate('/');
+    }
 
+    getUser = async () => {
+        try {
+            const user = await agent.Account.current();
+            runInAction(() => this.user = user);
+        } catch (error) {
+            console.log(error);
+        }
     }
 }

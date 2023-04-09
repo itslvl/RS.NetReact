@@ -1,6 +1,6 @@
 import { ErrorMessage, Form, Formik, FormikHelpers, FormikValues } from "formik"
 import MyText from "../../app/common/form/MyText"
-import { Button, Label } from "semantic-ui-react"
+import { Button, Header, Label } from "semantic-ui-react"
 import { useStore } from "../../app/stores/Store";
 import { observer } from "mobx-react-lite";
 
@@ -15,6 +15,8 @@ export default observer(function LoginForm() {
         >
             {({ handleSubmit, isSubmitting, errors }) => (
                 <Form className="ui form" onSubmit={handleSubmit} autoComplete="off">
+                    <Header as='h3' content='Login to RS.NetReact' color="orange" textAlign="center" />
+
                     <MyText placeholder="Email" name="email" />
                     <MyText placeholder="Password" name="password" type='password' />
                     <ErrorMessage
