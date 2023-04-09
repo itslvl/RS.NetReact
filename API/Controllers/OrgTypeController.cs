@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    [AllowAnonymous]
+    // [AllowAnonymous]
     public class OrgTypeController : BaseApiController
     {
         // private readonly IMediator _mediator;
