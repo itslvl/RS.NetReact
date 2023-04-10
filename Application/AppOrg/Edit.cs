@@ -35,9 +35,11 @@ namespace Application.AppOrg
                 var r = await _context.Org.FindAsync(request.Org.Id);
                 if (r == null) return null;
                 // r.Definition = request.ROrgType.Definition ?? r.Definition;
+                
                 _mapper.Map(request.Org, r);
+                _context.Org.Update(r);
                 var ret = await _context.SaveChangesAsync() > 0;
-                if (!ret) return Result<Unit>.Failure("Fail to update organization type");
+                if (!ret) return Result<Unit>.Failure("Fail to update organization");
                 return Result<Unit>.Success(Unit.Value);
             }
         }

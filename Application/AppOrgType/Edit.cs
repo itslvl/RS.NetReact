@@ -36,6 +36,7 @@ namespace Application.AppOrgType
                 if (r == null) return null;
                 // r.Definition = request.ROrgType.Definition ?? r.Definition;
                 _mapper.Map(request.OrgType, r);
+                _context.OrgType.Update(r);
                 var ret = await _context.SaveChangesAsync() > 0;
                 if (!ret) return Result<Unit>.Failure("Fail to update organization type");
                 return Result<Unit>.Success(Unit.Value);

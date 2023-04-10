@@ -10,6 +10,6 @@ namespace Domain
         public Guid SSClientSecret { get; set; }
         public string OrgName { get; set; }
         public Guid Parent { get; set; }
-        // public ICollection<OrgTypeDto> OrgTypeDtos { get; set; }
+        public OrgTypeDto OrgType { get; set; }
     }
 }

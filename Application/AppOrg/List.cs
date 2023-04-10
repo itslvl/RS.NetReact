@@ -27,27 +27,13 @@ namespace Application.AppOrg
             public async Task<Result<List<OrgDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var r = await _context.Org
+                    .Include(a => a.OrgType)
                     .ProjectTo<OrgDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
 
-
-                // var destination = source.AsQueryable()
-                //     .ProjectTo<DestinationClass>(mapper.ConfigurationProvider)
-                //     .ToList();
-
-
-
+                // var result = _mapper.Map<List<Org>, List<OrgDto>>(r);
                 return Result<List<OrgDto>>.Success(r);
 
-
-                // var orders = await _dbContext.Orders
-                // .Include(o => o.OrderItems)
-                // .Where(o => o.OrderNumber.StartsWith("ORD"))
-                // .ProjectTo<OrderDto>(_mapper.ConfigurationProvider)
-                // .ToListAsync();
-
-
-                // return Result<List<Org>>.Success(await _context.Org.Include(o => o.OrgType).ToListAsync(cancellationToken));
             }
         }
     }
