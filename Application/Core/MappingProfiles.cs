@@ -16,6 +16,8 @@ namespace Application.Core
                 // .ForMember(dest => dest.Org, opt => opt.MapFrom(src => src.Org))
                 .MaxDepth(1);
 
+            // .ForMember(dest => dest.Org, opt => opt.MapFrom(src => src.Org))
+
 
             // cfg.CreateMap<Source, DestinationDto>()
             //     .ForMember(dest => dest.CollectionProperty, 

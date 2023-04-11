@@ -93,6 +93,67 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Location", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Deleted")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("LocationTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Mode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("OrgId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ZoneId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LocationTypeId");
+
+                    b.HasIndex("OrgId");
+
+                    b.HasIndex("ZoneId");
+
+                    b.ToTable("Location");
+                });
+
+            modelBuilder.Entity("Domain.LocationType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Definition")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Display")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LocationType");
+                });
+
             modelBuilder.Entity("Domain.Org", b =>
                 {
                     b.Property<Guid>("Id")
@@ -154,6 +215,32 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("OrgType");
+                });
+
+            modelBuilder.Entity("Domain.Zone", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Definition")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DistrictId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProvinceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VillageId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Zone");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -289,6 +376,31 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Location", b =>
+                {
+                    b.HasOne("Domain.LocationType", "LocationType")
+                        .WithMany("Location")
+                        .HasForeignKey("LocationTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Org", null)
+                        .WithMany("Location")
+                        .HasForeignKey("OrgId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Zone", "Zone")
+                        .WithMany("Location")
+                        .HasForeignKey("ZoneId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("LocationType");
+
+                    b.Navigation("Zone");
+                });
+
             modelBuilder.Entity("Domain.Org", b =>
                 {
                     b.HasOne("Domain.OrgType", "OrgType")
@@ -351,9 +463,24 @@ namespace Persistence.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Domain.LocationType", b =>
+                {
+                    b.Navigation("Location");
+                });
+
+            modelBuilder.Entity("Domain.Org", b =>
+                {
+                    b.Navigation("Location");
+                });
+
             modelBuilder.Entity("Domain.OrgType", b =>
                 {
                     b.Navigation("Org");
+                });
+
+            modelBuilder.Entity("Domain.Zone", b =>
+                {
+                    b.Navigation("Location");
                 });
 #pragma warning restore 612, 618
         }

@@ -11,6 +11,9 @@ namespace Persistence
         }
         public DbSet<OrgType> OrgType { get; set; }
         public DbSet<Org> Org { get; set; }
+        public DbSet<Zone> Zone { get; set; }
+        public DbSet<LocationType> LocationType { get; set; }
+        public DbSet<Location> Location { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -23,6 +26,17 @@ namespace Persistence
             .HasOne(u => u.OrgType)
             .WithMany(u => u.Org)
             .HasForeignKey(u => u.OrgTypeID);
+
+            builder.Entity<Location>()
+            .HasOne(u => u.LocationType)
+            .WithMany(u => u.Location)
+            .HasForeignKey(u => u.LocationTypeId);
+
+             builder.Entity<Location>()
+            .HasOne(u => u.Zone)
+            .WithMany(u => u.Location)
+            .HasForeignKey(u => u.ZoneId);
+            
         }
     }
 }
