@@ -1,5 +1,6 @@
 using AutoMapper;
 using Domain;
+using Domain.DomainDto;
 
 namespace Application.Core
 {

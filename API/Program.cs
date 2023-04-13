@@ -48,6 +48,10 @@ try
     await Seed.SeedOrgType(context);
     await Seed.SeedZone(context);
     await Seed.SeedLocationType(context);
+    await Seed.SeedAgama(context);
+    await Seed.SeedBahasa(context);
+    await Seed.SeedGender(context);
+    await Seed.SeedGolongan(context);
     // await Seed.SeedData(context);
 
 }

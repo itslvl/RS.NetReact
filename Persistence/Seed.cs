@@ -1,6 +1,8 @@
 
 using AutoMapper;
 using Domain;
+using Domain.DomainDto;
+using DomainDto;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 
@@ -26,7 +28,7 @@ namespace Persistence
         //     await SeedZone();
         //     return;
         // }
-        public  static async Task SeedData(UserManager<AppUser> userManager,
+        public static async Task SeedData(UserManager<AppUser> userManager,
         AppDbContext context)
         {
             if (!userManager.Users.Any())
@@ -97,7 +99,7 @@ namespace Persistence
             return;
         }
 
-        public  static async Task SeedZone(AppDbContext context)
+        public static async Task SeedZone(AppDbContext context)
         {
 
 
@@ -119,8 +121,7 @@ namespace Persistence
             return;
         }
 
-
-        public  static async Task SeedLocationType(AppDbContext context)
+        public static async Task SeedLocationType(AppDbContext context)
         {
 
 
@@ -137,6 +138,102 @@ namespace Persistence
             foreach (var locationType in locationTypes)
             {
                 context.LocationType.Add(locationType);
+            }
+            await context.SaveChangesAsync();
+            return;
+        }
+
+        public static async Task SeedAgama(AppDbContext context)
+        {
+
+
+            if (context.Agama.Any()) return;
+            string jsonFilePath = Path.Combine(Directory.GetCurrentDirectory(),
+                "SeedFiles\\AgamaSeed.Json");
+            string jsonData = File.ReadAllText(jsonFilePath);
+            AgamaDto[] agamaDto = JsonConvert.DeserializeObject<AgamaDto[]>(jsonData);
+            IMapper mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<AgamaDto, Agama>();
+            }).CreateMapper();
+
+            var agamas = mapper.Map<Agama[]>(agamaDto);
+            foreach (var agama in agamas)
+            {
+                context.Agama.Add(agama);
+            }
+            await context.SaveChangesAsync();
+            return;
+        }
+
+
+        public static async Task SeedBahasa(AppDbContext context)
+        {
+
+
+            if (context.Bahasa.Any()) return;
+            string jsonFilePath = Path.Combine(Directory.GetCurrentDirectory(),
+                "SeedFiles\\BahasaSeed.Json");
+            string jsonData = File.ReadAllText(jsonFilePath);
+            BahasaDto[] bahasaDto = JsonConvert.DeserializeObject<BahasaDto[]>(jsonData);
+            IMapper mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<BahasaDto, Bahasa>();
+            }).CreateMapper();
+
+            var bahasas = mapper.Map<Bahasa[]>(bahasaDto);
+            foreach (var bahasa in bahasas)
+            {
+                context.Bahasa.Add(bahasa);
+            }
+            await context.SaveChangesAsync();
+            return;
+        }
+
+        public static async Task SeedGender(AppDbContext context)
+        {
+
+            if (!context.Gender.Any())
+            {
+                var lst = new List<Gender>
+                    {
+                        new Gender{Uraian="Laki-laki"},
+                        new Gender{Uraian="Perempuan"},
+                        new Gender{Uraian="Tidak diketahui"},
+                        new Gender{Uraian="---"}
+                    };
+                foreach (var row in lst)
+                {
+                    context.Gender.Add(row);
+                }
+            }
+            await context.SaveChangesAsync();
+            return;
+        }
+
+         public static async Task SeedGolongan(AppDbContext context)
+        {
+
+
+            if (context.Golongan.Any()) return;
+            string jsonFilePath = Path.Combine(Directory.GetCurrentDirectory(),
+                "SeedFiles\\GolonganSeed.Json");
+            string jsonData = File.ReadAllText(jsonFilePath);
+            GolonganSeedDto[] golonganDto = JsonConvert.DeserializeObject<GolonganSeedDto[]>(jsonData);
+            IMapper mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<GolonganSeedDto, Golongan>()
+                .ForMember(dest => dest.UraianGolongan, 
+                    opt => opt.MapFrom(src => src.Uraian))
+                .ForMember(dest => dest.UraianPangkat, 
+                    opt => opt.MapFrom(src => src.Uraian2))
+                ;
+            }).CreateMapper();
+
+            var golongans = mapper.Map<Golongan[]>(golonganDto);
+            foreach (var golongan in golongans)
+            {
+                context.Golongan.Add(golongan);
             }
             await context.SaveChangesAsync();
             return;

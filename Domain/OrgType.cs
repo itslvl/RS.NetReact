@@ -12,7 +12,7 @@ namespace Domain
         public string Display { get; set; } = "";
         public string Definition { get; set; } = "";
 
-        public ICollection<Org> Org { get; set; } = new List<Org>();
+        public ICollection<Org> Org { get; set; }
     }
 
 

@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 using AutoMapper.QueryableExtensions;
+using Domain.DomainDto;
 
 namespace Application.AppOrg
 {

@@ -1,4 +1,4 @@
-namespace Domain
+namespace Domain.DomainDto
 {
     public class OrgDto
     {
