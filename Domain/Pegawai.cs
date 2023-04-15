@@ -36,7 +36,6 @@ namespace Domain
         public virtual Golongan PegawaiGolongan { get; set; }
         public Guid JabatanId { get; set; }
         public virtual Jabatan PegawaiJabatan { get; set; }
-
         public Guid NegaraId { get; set; }
         public virtual Negara PegawaiNegara { get; set; }
         public Guid PendidikanId { get; set; }
@@ -48,7 +47,7 @@ namespace Domain
         public Guid SukuId { get; set; }
         public virtual Suku PegawaiSuku { get; set; }
         public Guid ZoneId { get; set; }
-        public virtual Zone Village { get; set; }
+        public virtual Zone PegawaiZone { get; set; }
 
         // public int KodeRuang3 { get; set; }
         // public virtual RRuang3 RRuang3 { get; set; }
