@@ -5,17 +5,16 @@ namespace Domain
     public class Pegawai
     {
         [Key]
-        public Guid Kode { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; } = Guid.NewGuid();
         public int Deleted { get; set; } = 0;
         [MaxLength(255)] public string NIP { get; set; } = "";
-        [MaxLength(255)] public string Name { get; set; } = "";
-        [MaxLength(255)] public string PlaceOfBirth { get; set; } = "";
+        [MaxLength(255)] public string Nama { get; set; } = "";
+        [MaxLength(255)] public string TmpLahir { get; set; } = "";
         [DataType(DataType.Date)] public DateTime TglLahir { get; set; }
         public string Alamat { get; set; } = "";
-        public Guid ZoneId { get; set; }
-        public virtual Zone Village { get; set; }
-        [MaxLength(50)] public string PhoneNumber { get; set; } = "";
-        [DataType(DataType.Date)] public DateTime EntryDate { get; set; }
+        
+        [MaxLength(50)] public string Tlp { get; set; } = "";
+        [DataType(DataType.Date)] public DateTime TlgMasuk { get; set; }
         public string PictFile { get; set; } = "";
         public int IsFakasi { get; set; } = 0;
 
@@ -48,6 +47,8 @@ namespace Domain
         public virtual Perkawinan PegawaiPerkawinan { get; set; }
         public Guid SukuId { get; set; }
         public virtual Suku PegawaiSuku { get; set; }
+        public Guid ZoneId { get; set; }
+        public virtual Zone Village { get; set; }
 
         // public int KodeRuang3 { get; set; }
         // public virtual RRuang3 RRuang3 { get; set; }

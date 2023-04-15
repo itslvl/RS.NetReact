@@ -14,7 +14,7 @@ namespace Domain
         public Guid SSClientID { get; set; } = Guid.NewGuid();
         public Guid SSClientSecret { get; set; } = Guid.NewGuid();
         public string OrgName { get; set; } = "";
-        public Guid Parent { get; set; }
+        public Guid Parent { get; set; } = Guid.NewGuid();
 
         // to FK OrgType
         public Guid OrgTypeID { get; set; }

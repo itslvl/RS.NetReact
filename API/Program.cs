@@ -45,13 +45,25 @@ try
     var userManager = services.GetRequiredService<UserManager<AppUser>>();
     await context.Database.MigrateAsync();
     await Seed.SeedData(userManager, context);
-    await Seed.SeedOrgType(context);
-    await Seed.SeedZone(context);
-    await Seed.SeedLocationType(context);
     await Seed.SeedAgama(context);
     await Seed.SeedBahasa(context);
     await Seed.SeedGender(context);
     await Seed.SeedGolongan(context);
+    await Seed.SeedJabatan(context);
+    await Seed.SeedZone(context);
+    await Seed.SeedOrgType(context);
+    await Seed.SeedOrg(context);
+    await Seed.SeedLocationType(context);
+    await Seed.SeedLocation(context);
+    await Seed.SeedNegara(context);
+    await Seed.SeedPendidikan(context);
+    await Seed.SeedPendidikan1(context);
+    await Seed.SeedPendidikan2(context);
+    await Seed.SeedPendidikan3(context);
+    await Seed.SeedPerkawinan(context);
+    await Seed.SeedSuku(context);
+    await Seed.SeedPegawai(context);
+    
     // await Seed.SeedData(context);
 
 }

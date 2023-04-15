@@ -1,6 +1,7 @@
 using AutoMapper;
 using Domain;
 using Domain.DomainDto;
+using DomainDto;
 
 namespace Application.Core
 {
@@ -16,6 +17,7 @@ namespace Application.Core
             CreateMap<OrgType, OrgTypeDto>()
                 // .ForMember(dest => dest.Org, opt => opt.MapFrom(src => src.Org))
                 .MaxDepth(1);
+            CreateMap<Pegawai, PegawaiDto>();
 
             // .ForMember(dest => dest.Org, opt => opt.MapFrom(src => src.Org))
 

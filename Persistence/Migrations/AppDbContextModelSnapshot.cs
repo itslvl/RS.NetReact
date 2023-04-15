@@ -324,7 +324,7 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Pegawai", b =>
                 {
-                    b.Property<Guid>("Kode")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -339,9 +339,6 @@ namespace Persistence.Migrations
 
                     b.Property<int>("Deleted")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("EntryDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("GenderId")
                         .HasColumnType("uniqueidentifier");
@@ -362,7 +359,7 @@ namespace Persistence.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Nama")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
@@ -378,16 +375,8 @@ namespace Persistence.Migrations
                     b.Property<Guid>("PerkawinanId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<string>("PictFile")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PlaceOfBirth")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
 
                     b.Property<Guid>("SukuId")
                         .HasColumnType("uniqueidentifier");
@@ -395,10 +384,21 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("TglLahir")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("TlgMasuk")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Tlp")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("TmpLahir")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<Guid>("ZoneId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Kode");
+                    b.HasKey("Id");
 
                     b.HasIndex("AgamaId");
 
@@ -471,15 +471,12 @@ namespace Persistence.Migrations
                     b.Property<Guid>("ParentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("Pendidikan2Ke1Id")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Uraian")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Pendidikan2Ke1Id");
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Pendidikan2");
                 });
@@ -496,15 +493,12 @@ namespace Persistence.Migrations
                     b.Property<Guid>("ParentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("Pendidikan3Ke2Id")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Uraian")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Pendidikan3Ke2Id");
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Pendidikan3");
                 });
@@ -833,7 +827,9 @@ namespace Persistence.Migrations
                 {
                     b.HasOne("Domain.Pendidikan1", "Pendidikan2Ke1")
                         .WithMany("Pendidikan1Ke2")
-                        .HasForeignKey("Pendidikan2Ke1Id");
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Pendidikan2Ke1");
                 });
@@ -842,7 +838,9 @@ namespace Persistence.Migrations
                 {
                     b.HasOne("Domain.Pendidikan2", "Pendidikan3Ke2")
                         .WithMany("Pendidikan2Ke3")
-                        .HasForeignKey("Pendidikan3Ke2Id");
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Pendidikan3Ke2");
                 });

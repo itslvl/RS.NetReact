@@ -51,6 +51,16 @@ namespace Persistence
             .WithMany(u => u.Location)
             .HasForeignKey(u => u.ZoneId);
 
+            builder.Entity<Pendidikan3>()
+            .HasOne(u => u.Pendidikan3Ke2)
+            .WithMany(u => u.Pendidikan2Ke3)
+            .HasForeignKey(u => u.ParentId);
+
+            builder.Entity<Pendidikan2>()
+            .HasOne(u => u.Pendidikan2Ke1)
+            .WithMany(u => u.Pendidikan1Ke2)
+            .HasForeignKey(u => u.ParentId);
+
             builder.Entity<Pegawai>()
             .HasOne(u => u.PegawaiAgama)
             .WithMany(u => u.AgamaPegawai)
