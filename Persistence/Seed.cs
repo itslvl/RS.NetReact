@@ -100,7 +100,7 @@ namespace Persistence
 
             if (context.Bahasa.Any()) return;
             string jsonFilePath = Path.Combine(Directory.GetCurrentDirectory(),
-                "SeedFiles//ahasaSeed.Json");
+                "SeedFiles//BahasaSeed.Json");
             string jsonData = File.ReadAllText(jsonFilePath);
             BahasaDto[] bahasaDto = JsonConvert.DeserializeObject<BahasaDto[]>(jsonData);
             IMapper mapper = new MapperConfiguration(cfg =>
