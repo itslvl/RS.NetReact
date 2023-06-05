@@ -9,6 +9,9 @@ namespace Application.Core
     {
         public MappingProfiles()
         {
+            CreateMap<Agama, AgamaDto>();
+            CreateMap<Bahasa, BahasaDto>();
+            CreateMap<Golongan, GolonganDto>();
             CreateMap<OrgType, OrgType>();
             CreateMap<Org, OrgDto>()
                 .ForMember(dest => dest.OrgType,

@@ -1,3 +1,4 @@
+using Application.AppValidator;
 using Application.Core;
 using AutoMapper;
 using Domain;

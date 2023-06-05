@@ -143,10 +143,10 @@ namespace Persistence
             string jsonFilePath = Path.Combine(Directory.GetCurrentDirectory(),
                 "SeedFiles//GolonganSeed.Json");
             string jsonData = File.ReadAllText(jsonFilePath);
-            GolonganSeedDto[] golonganDto = JsonConvert.DeserializeObject<GolonganSeedDto[]>(jsonData);
+            GolonganDto[] golonganDto = JsonConvert.DeserializeObject<GolonganDto[]>(jsonData);
             IMapper mapper = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<GolonganSeedDto, Golongan>()
+                cfg.CreateMap<GolonganDto, Golongan>()
                 .ForMember(dest => dest.UraianGolongan,
                     opt => opt.MapFrom(src => src.Uraian))
                 .ForMember(dest => dest.UraianPangkat,
