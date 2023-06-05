@@ -78,7 +78,7 @@ namespace Persistence
 
             if (context.Agama.Any()) return;
             string jsonFilePath = Path.Combine(Directory.GetCurrentDirectory(),
-                "SeedFiles\\AgamaSeed.Json");
+                "SeedFiles//AgamaSeed.Json");
             string jsonData = File.ReadAllText(jsonFilePath);
             AgamaDto[] agamaDto = JsonConvert.DeserializeObject<AgamaDto[]>(jsonData);
             IMapper mapper = new MapperConfiguration(cfg =>
@@ -100,7 +100,7 @@ namespace Persistence
 
             if (context.Bahasa.Any()) return;
             string jsonFilePath = Path.Combine(Directory.GetCurrentDirectory(),
-                "SeedFiles\\BahasaSeed.Json");
+                "SeedFiles//ahasaSeed.Json");
             string jsonData = File.ReadAllText(jsonFilePath);
             BahasaDto[] bahasaDto = JsonConvert.DeserializeObject<BahasaDto[]>(jsonData);
             IMapper mapper = new MapperConfiguration(cfg =>
@@ -141,7 +141,7 @@ namespace Persistence
 
             if (context.Golongan.Any()) return;
             string jsonFilePath = Path.Combine(Directory.GetCurrentDirectory(),
-                "SeedFiles\\GolonganSeed.Json");
+                "SeedFiles//GolonganSeed.Json");
             string jsonData = File.ReadAllText(jsonFilePath);
             GolonganSeedDto[] golonganDto = JsonConvert.DeserializeObject<GolonganSeedDto[]>(jsonData);
             IMapper mapper = new MapperConfiguration(cfg =>
@@ -189,7 +189,7 @@ namespace Persistence
 
 
             if (context.LocationType.Any()) return;
-            string jsonFilePath = Path.Combine(Directory.GetCurrentDirectory(), "SeedFiles\\LocationTypeSeed.Json");
+            string jsonFilePath = Path.Combine(Directory.GetCurrentDirectory(), "SeedFiles//LocationTypeSeed.Json");
             string jsonData = File.ReadAllText(jsonFilePath);
             LocationTypeDto[] locationTypeDto = JsonConvert.DeserializeObject<LocationTypeDto[]>(jsonData);
             IMapper mapper = new MapperConfiguration(cfg =>
@@ -208,7 +208,7 @@ namespace Persistence
         public static async Task SeedZone(AppDbContext context)
         {
             if (context.Zone.Any()) return;
-            string jsonFilePath = Path.Combine(Directory.GetCurrentDirectory(), "SeedFiles\\ZoneSeed.Json");
+            string jsonFilePath = Path.Combine(Directory.GetCurrentDirectory(), "SeedFiles//ZoneSeed.Json");
             string jsonData = File.ReadAllText(jsonFilePath);
             ZoneDto[] zoneDto = JsonConvert.DeserializeObject<ZoneDto[]>(jsonData);
             IMapper mapper = new MapperConfiguration(cfg =>
@@ -350,7 +350,7 @@ namespace Persistence
 
             if (context.Pendidikan.Any()) return;
             string jsonFilePath = Path.Combine(Directory.GetCurrentDirectory(),
-                "SeedFiles\\PendidikanSeed.Json");
+                "SeedFiles//PendidikanSeed.Json");
             string jsonData = File.ReadAllText(jsonFilePath);
             PendidikanDto[] pendidikanDto = JsonConvert.DeserializeObject<PendidikanDto[]>(jsonData);
             IMapper mapper = new MapperConfiguration(cfg =>
@@ -371,7 +371,7 @@ namespace Persistence
 
             if (context.Pendidikan1.Any()) return;
             string jsonFilePath = Path.Combine(Directory.GetCurrentDirectory(),
-                "SeedFiles\\Pendidikan1Seed.Json");
+                "SeedFiles//Pendidikan1Seed.Json");
             string jsonData = File.ReadAllText(jsonFilePath);
             Pendidikan1Dto[] pendidikan1Dto = JsonConvert.DeserializeObject<Pendidikan1Dto[]>(jsonData);
             IMapper mapper = new MapperConfiguration(cfg =>
@@ -391,7 +391,7 @@ namespace Persistence
         {
             if (context.Pendidikan2.Any()) return;
             string jsonFilePath = Path.Combine(Directory.GetCurrentDirectory(),
-                "SeedFiles\\Pendidikan2Seed.Json");
+                "SeedFiles//Pendidikan2Seed.Json");
             string jsonData = File.ReadAllText(jsonFilePath);
             Pendidikan2Dto[] pendidikan2Dto = JsonConvert.DeserializeObject<Pendidikan2Dto[]>(jsonData);
             IMapper mapper = new MapperConfiguration(cfg =>
@@ -417,7 +417,7 @@ namespace Persistence
 
             if (context.Pendidikan3.Any()) return;
             string jsonFilePath = Path.Combine(Directory.GetCurrentDirectory(),
-                "SeedFiles\\Pendidikan3Seed.Json");
+                "SeedFiles//Pendidikan3Seed.Json");
             string jsonData = File.ReadAllText(jsonFilePath);
             Pendidikan3Dto[] pendidikan3Dto = JsonConvert.DeserializeObject<Pendidikan3Dto[]>(jsonData);
             IMapper mapper = new MapperConfiguration(cfg =>

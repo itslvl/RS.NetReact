@@ -4,6 +4,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+// using Microsoft.EntityFrameWorkCore.UseSqlLite;
 using Persistence;
 using Infrastructure.Security;
 using Application.Interfaces;
@@ -17,10 +18,11 @@ namespace API.Extensions
         {
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
-            services.AddDbContext<AppDbContext>(opt =>
-            {
-                opt.UseSqlServer(config.GetConnectionString("DefaultConnection2"));
-            });
+            // services.AddDbContext<AppDbContext>(opt =>
+            // {
+            //     opt.UseSqlLite(GetConnectionString("DefaultConnection"));
+            //     // opt.UseSqlServer(config.GetConnectionString("DefaultConnection2"));
+            // });
 
             services.AddCors(opt =>
             {

@@ -14,11 +14,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers(opt =>
 {
     var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-    opt.Filters.Add ( new AuthorizeFilter(policy));
+    opt.Filters.Add(new AuthorizeFilter(policy));
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddAppServiceExtensions(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
+builder.Services.AddDbContext<AppDbContext>(opt =>
+{
+    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
@@ -63,7 +67,7 @@ try
     await Seed.SeedPerkawinan(context);
     await Seed.SeedSuku(context);
     await Seed.SeedPegawai(context);
-    
+
     // await Seed.SeedData(context);
 
 }
