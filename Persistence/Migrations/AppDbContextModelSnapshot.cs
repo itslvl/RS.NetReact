@@ -116,6 +116,9 @@ namespace Persistence.Migrations
                     b.Property<int>("Deleted")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Kode")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Uraian")
                         .HasColumnType("TEXT");
 
@@ -133,6 +136,9 @@ namespace Persistence.Migrations
                     b.Property<int>("Deleted")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Kode")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Uraian")
                         .HasColumnType("TEXT");
 
@@ -148,6 +154,9 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Deleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Kode")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("UraianGolongan")
@@ -168,6 +177,9 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Deleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Kode")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Uraian")

@@ -148,9 +148,9 @@ namespace Persistence
             {
                 cfg.CreateMap<GolonganDto, Golongan>()
                 .ForMember(dest => dest.UraianGolongan,
-                    opt => opt.MapFrom(src => src.Uraian))
+                    opt => opt.MapFrom(src => src.UraianGolongan))
                 .ForMember(dest => dest.UraianPangkat,
-                    opt => opt.MapFrom(src => src.Uraian2))
+                    opt => opt.MapFrom(src => src.UraianPangkat))
                 ;
             }).CreateMapper();
 

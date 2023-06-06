@@ -11,17 +11,17 @@ namespace Application.Core
         {
             CreateMap<Agama, AgamaDto>();
             CreateMap<Bahasa, BahasaDto>();
+            CreateMap<Gender, GenderDto>();
             CreateMap<Golongan, GolonganDto>();
+            CreateMap<Jabatan, JabatanDto>();
             CreateMap<OrgType, OrgType>();
             CreateMap<Org, OrgDto>()
                 .ForMember(dest => dest.OrgType,
                     opt => opt.MapFrom(src => src.OrgType))
                     .MaxDepth(1);
             CreateMap<OrgType, OrgTypeDto>()
-                // .ForMember(dest => dest.Org, opt => opt.MapFrom(src => src.Org))
                 .MaxDepth(1);
             CreateMap<Pegawai, Pegawai>()
-           // .ForMember(dest => dest.Org, opt => opt.MapFrom(src => src.Org))
            .MaxDepth(1);
             CreateMap<Pegawai, PegawaiDto>()
                 .ForMember(dest => dest.PegawaiAgama,

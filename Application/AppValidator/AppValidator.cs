@@ -33,12 +33,29 @@ namespace Application.AppValidator
             RuleFor(a => a.Deleted).NotEmpty();
         }
     }
-
+    public class GenderValidator : AbstractValidator<Gender>
+    {
+        public GenderValidator()
+        {
+            RuleFor(a => a.Uraian).NotEmpty();
+            RuleFor(a => a.Kode).NotEmpty();
+            RuleFor(a => a.Deleted).NotEmpty();
+        }
+    }
     public class GolonganValidator : AbstractValidator<Golongan>
     {
         public GolonganValidator()
         {
             RuleFor(a => a.UraianGolongan).NotEmpty();
+            RuleFor(a => a.Kode).NotEmpty();
+            RuleFor(a => a.Deleted).NotEmpty();
+        }
+    }
+    public class JabatanValidator : AbstractValidator<Jabatan>
+    {
+        public JabatanValidator()
+        {
+            RuleFor(a => a.Uraian).NotEmpty();
             RuleFor(a => a.Kode).NotEmpty();
             RuleFor(a => a.Deleted).NotEmpty();
         }
