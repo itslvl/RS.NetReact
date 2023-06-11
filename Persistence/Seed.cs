@@ -90,6 +90,7 @@ namespace Persistence
             foreach (var agama in agamas)
             {
                 context.Agama.Add(agama);
+                // await context.SaveChangesAsync();
             }
             await context.SaveChangesAsync();
             return;

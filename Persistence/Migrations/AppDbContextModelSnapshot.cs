@@ -29,6 +29,9 @@ namespace Persistence.Migrations
                     b.Property<int>("Kode")
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Uraian")
                         .HasColumnType("TEXT");
 
