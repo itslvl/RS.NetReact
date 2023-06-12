@@ -9,6 +9,7 @@ import NotFound from "../../features/errors/NotFound";
 import ServerError from "../../features/errors/ServerError";
 import LoginForm from "../../features/users/LoginForm";
 import Stay from "../../features/home/Stay";
+import Agama from "../../features/agama/Agama";
 
 export const Routes : RouteObject[] = [
     {
@@ -16,6 +17,7 @@ export const Routes : RouteObject[] = [
         element : <App />,
         children: [
             {path:'stay', element: <Stay/>},
+            {path:'agama', element: <Agama/>},
             {path:'orgType', element: <OrgTypeDashboard/>},
             {path:'orgType/:id', element: <OrgTypeDetails   />},
             {path:'createOrgType', element: <OrgTypeForm key='create'/>},
