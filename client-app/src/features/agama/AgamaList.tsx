@@ -4,13 +4,15 @@ import { observer } from "mobx-react-lite";
 import LoadingComponent from "../../app/layout/loadingComponent";
 import { Header, Label, List, Table } from "semantic-ui-react";
 import axios from "axios";
+import { AgamaAPI } from "../../app/models/AgamaAPI";
+import AgamaListContent from "./AgamaListContent";
 
 export default observer(function AgamaList() {
 
-    const [agamas, setAgamas] = useState([]);
+    const [agamas, setAgamas] = useState<AgamaAPI[]>([]);
 
     useEffect(() => {
-        axios.get('http://localhost:5006/agama')
+        axios.get<AgamaAPI[]>('http://localhost:5006/agama')
             .then(response => {
                 console.log(response);
                 setAgamas(response.data);
@@ -20,43 +22,11 @@ export default observer(function AgamaList() {
     return (
         <>
             <Label>Ini List</Label>
-            <Header>Daftar Agama</Header>
-            <List>
-                {agamas.map((agama: any) => (
-                    <List.Item key={agama.id}>
-                        {agama.id}
-                        {agama.uraian}
-                        {agama.timestamp}
-                        {agama.deleted}
-                        {agama.kode}
-                    </List.Item>
-                ))}
-            </List>
-            <Table striped>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell>Id</Table.HeaderCell>
-                        <Table.HeaderCell>Kode</Table.HeaderCell>
-                        <Table.HeaderCell>Uraian</Table.HeaderCell>
-                        <Table.HeaderCell>TimeStamp</Table.HeaderCell>
-                        <Table.HeaderCell>Deleted</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
+            <Header as='h2'>Daftar Agama</Header>
 
-                <Table.Body>
-                {agamas.map((agama: any) => (
-
-                    <Table.Row key={agama.id}>
-                        <Table.Cell>{agama.id}</Table.Cell>
-                        <Table.Cell>{agama.kode}</Table.Cell>
-                        <Table.Cell>{agama.uraian}</Table.Cell>
-                        <Table.Cell>{agama.timeStamp}</Table.Cell>
-                        <Table.Cell>{agama.deleted}</Table.Cell>
-                    </Table.Row>
-                ))}
-
-                </Table.Body>
-            </Table>
+            <AgamaListContent agamas={agamas} />
+            {/* agamas merupakan nama interface pada Component AgamaListContent
+            sedangkan {agamas} adalah diambil dari useState */}
         </>
     )
 }
