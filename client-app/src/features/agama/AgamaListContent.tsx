@@ -42,7 +42,7 @@ export default function AgamaListContent({ agamas }: Props) {
 
                         <Table.Row key={agama.id}>
                             <Table.Cell>
-                                <Link to={`/detail/${agama.id}`}>{agama.id.substring(0, 7).toUpperCase()} </Link>
+                                <Link  to={`/detail/${agama.id}`}>{agama.id.substring(0, 7).toUpperCase()} </Link>
 
                             </Table.Cell>
                             <Table.Cell>{agama.kode}</Table.Cell>

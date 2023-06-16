@@ -10,6 +10,7 @@ import { Grid } from "semantic-ui-react";
 export default observer(function Agama() {
 
     const [agamas, setAgamas] = useState<AgamaAPI[]>([]);
+    const [selectedAgama, setSelectedAgama] = useState<AgamaAPI | undefined>(undefined);
 
     useEffect(() => {
         axios.get<AgamaAPI[]>('http://localhost:5006/agama')
@@ -18,6 +19,14 @@ export default observer(function Agama() {
                 setAgamas(response.data);
             })
     }, [])
+
+    function handleSelectAgama(id: string) {
+        setSelectedAgama(agamas.find(x => x.id === id))
+    }
+
+    function handleCancelAgama() {
+        setSelectedAgama(undefined)
+    }
 
     // const { orgTypeStore } = useStore();
     // const { loadingOrgTypes, orgTypesReg } = orgTypeStore;
@@ -39,14 +48,14 @@ export default observer(function Agama() {
             </Grid> */}
             <Grid>
                 <Grid.Column width={16}>
-                    <AgamaEntry />
+                    <AgamaEntry selectedAgama={selectedAgama} selectAgama={handleSelectAgama} cancelAgama={handleCancelAgama} />
                 </Grid.Column>
                 <Grid.Column width={16}>
-                    {agamas[0] && <AgamaDetail agama={agamas[2]} />}
+                    {selectedAgama && <AgamaDetail selectedAgama={selectedAgama} cancelAgama={handleCancelAgama} />}
                     {/* tapilkan detail agama bila ada nilai agamas[0] */}
                 </Grid.Column>
                 <Grid.Column width={16}>
-                    <AgamaList agamas={agamas} />
+                    <AgamaList agamas={agamas} selectAgama={handleSelectAgama} />
                 </Grid.Column>
             </Grid>
         </>

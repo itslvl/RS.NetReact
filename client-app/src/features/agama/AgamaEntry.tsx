@@ -2,9 +2,16 @@ import { useEffect } from "react";
 import { useStore } from "../../app/stores/Store";
 import { observer } from "mobx-react-lite";
 import LoadingComponent from "../../app/layout/loadingComponent";
-import { Divider, Form, Grid, Header, Image, Label, Segment } from "semantic-ui-react";
+import { Button, Divider, Form, FormGroup, Grid, Header, Image, Input, Label, Segment, TextArea } from "semantic-ui-react";
+import { AgamaAPI } from "../../app/models/AgamaAPI";
 
-export default observer(function AgamaEntry() {
+interface Props {
+    selectedAgama : AgamaAPI | undefined;
+    selectAgama : (id : string) => void;
+    cancelAgama : () => void;
+}
+
+export default observer(function AgamaEntry({selectAgama, selectedAgama, cancelAgama} : Props) {
 
     // const { orgTypeStore } = useStore();
     // const { loadingOrgTypes, orgTypesReg } = orgTypeStore;
@@ -18,48 +25,49 @@ export default observer(function AgamaEntry() {
     return (
         <>
             <Header className="ui center aligned header black" as='h1'> ___ ENTRY ___</Header>
-            <hr color="red"></hr>
-            <Segment>
+            <Segment clearing>
                 <Form>
-                    {/* <div className="qfc-container">
-                        <div className="inputBox">
-                            <input />
-                            <span>Id</span>
-                        </div>
-                        <div className="inputBox">
-                            <input placeholder='Kode' />
-                            <span>Kode</span>
-                        </div>
-                    </div> */}
-                    <Grid columns={2} relaxed='very'>
-                        <Grid.Column>
-                            {/* https://www.youtube.com/watch?v=BMphVl9suxA */}
-                            <fieldset >
-                                <div className="inputBox">
-                                    <input placeholder="" required />
-                                    <span>Is</span>
-                                </div>
-                                <div className="inputBox">
-                                    <input placeholder="" required />
-                                    <span>Dua</span>
-                                </div>
-                            </fieldset>
-                        </Grid.Column>
-                        <Grid.Column>
-                            <div className="wrapper">
-                                <div className="input-data">
-                                    <input placeholder="" required />
-                                    <label>Uraian</label>
-                                </div>
-                            </div>
-
-                        </Grid.Column>
-                    </Grid>
-
-                    <Divider vertical>And</Divider>
+                    <Form.Group widths='equal'>
+                        <Form.Field
+                            // id='form-input-control-first-name'
+                            control={Input}
+                            label='Id'
+                            placeholder='Id'
+                        />
+                        <Form.Field
+                            // id='form-input-control-first-name'
+                            control={Input}
+                            label='Kode'
+                            placeholder='Kode'
+                        />
+                        <Form.Field
+                            // id='form-input-control-first-deleted'
+                            control={Input}
+                            label='Deleted'
+                            placeholder='Deleted'
+                        />
+                        {/* <Form.Input placeholder='Id' label='Id' />
+                        <Form.Input placeholder='Kode' />
+                        <Form.Input placeholder='Deleted' />
+                        <Form.Input placeholder='TimeStamp' />
+                        <Form.Input placeholder='Uraian' /> */}
+                    </Form.Group>
+                    <Form.Field
+                        // id='form-input-control-first-deleted'
+                        control={Input}
+                        label='Time Stamp'
+                        placeholder='timeStamp'
+                    />
+                    <Form.Field
+                        id='form-textarea-control-opinion'
+                        control={TextArea}
+                        label='Uraian'
+                        placeholder='Uraian'
+                    />
+                    <Button floated='right' positive type='submit' content='Submit'/>
+                    <Button floated='right'  type='button' content='Cancel'/>
                 </Form>
             </Segment>
-            <hr color="red"></hr>
         </>
     )
 }
