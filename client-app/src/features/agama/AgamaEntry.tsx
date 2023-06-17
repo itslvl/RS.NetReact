@@ -26,11 +26,11 @@ export default observer(function AgamaEntry({ selectAgama, selectedAgama, cancel
     // if (orgTypeStore.loadingInitial) return <LoadingComponent content='Loading App' />
 
     const initialState = selectedAgama ?? {
-        id: '',
+        id: '1',
         kode: 0,
         deleted: 0,
         uraian: '',
-        timestamp: ''
+        timeStamp: ''
     }
 
     const [agamaForm, setAgamaForm] = useState(initialState);
@@ -40,7 +40,10 @@ export default observer(function AgamaEntry({ selectAgama, selectedAgama, cancel
     }
 
     function handleInput(event: ChangeEvent<HTMLInputElement>) {
-
+        const { name, value } = event.target;
+        setAgamaForm({ ...agamaForm, [name]: value })
+        // console.log('agamaForm', agamaForm)
+        // console.log('initial', initialState)
     }
 
     return (
@@ -53,7 +56,7 @@ export default observer(function AgamaEntry({ selectAgama, selectedAgama, cancel
                             // id='form-input-control-first-name'
                             control={Input}
                             label='Id' placeholder='Id'
-                            value={agamaForm} name='Id'
+                            value={agamaForm.id} name='id'
                             onChange={handleInput}
                         />
                         <Form.Field
@@ -61,30 +64,33 @@ export default observer(function AgamaEntry({ selectAgama, selectedAgama, cancel
                             control={Input}
                             label='Kode'
                             placeholder='Kode'
+                            value={agamaForm.kode} name='kode'
+                            onChange={handleInput}
                         />
                         <Form.Field
                             // id='form-input-control-first-deleted'
                             control={Input}
                             label='Deleted'
                             placeholder='Deleted'
+                            value={agamaForm.deleted} name='deleted'
+                            onChange={handleInput}
                         />
-                        {/* <Form.Input placeholder='Id' label='Id' />
-                        <Form.Input placeholder='Kode' />
-                        <Form.Input placeholder='Deleted' />
-                        <Form.Input placeholder='TimeStamp' />
-                        <Form.Input placeholder='Uraian' /> */}
                     </Form.Group>
                     <Form.Field
                         // id='form-input-control-first-deleted'
                         control={Input}
                         label='Time Stamp'
                         placeholder='timeStamp'
+                        value={agamaForm.timeStamp} name='timeStamp'
+                        onChange={handleInput}
                     />
                     <Form.Field
                         id='form-textarea-control-opinion'
                         control={TextArea}
                         label='Uraian'
                         placeholder='Uraian'
+                        value={agamaForm.uraian} name='uraian'
+                        onChange={handleInput}
                     />
                     <Button floated='right' positive type='submit' content='Submit' />
                     <Button onClick={closeForm} floated='right' type='button' content='Cancel' />

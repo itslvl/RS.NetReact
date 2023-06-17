@@ -17,6 +17,7 @@ export default observer(function AgamaDetail({ selectedAgama, cancelAgama, openF
     return (
         <>
             <Header className="ui center aligned header black" as='h1'> ___ Detail ___</Header>
+            {/* {console.log(selectedAgama)} */}
             <hr color="red"></hr>
             <Segment>
                 <Grid columns={2} relaxed='very'>
@@ -48,7 +49,7 @@ export default observer(function AgamaDetail({ selectedAgama, cancelAgama, openF
                                 <Label color='grey' horizontal style={{ width: '6em' }} >
                                     Time Stamp
                                 </Label>
-                                {selectedAgama.timestamp}
+                                {selectedAgama.timeStamp}
                             </List.Item>
                             <List.Item>
                                 <Label color='grey' horizontal style={{ width: '6em' }} >

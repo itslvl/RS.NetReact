@@ -3,7 +3,7 @@ export interface AgamaAPI {
     kode: string
     deleted: number;
     uraian: string;
-    timestamp: string;
+    timeStamp: string;
   }
 
   
