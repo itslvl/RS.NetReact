@@ -9,8 +9,9 @@ import { AgamaAPI } from "../../app/models/AgamaAPI";
 interface Props {
     selectedAgama: AgamaAPI;
     cancelAgama: () => void;
+    openForm: (id: string) => void;
 }
-export default observer(function AgamaDetail({ selectedAgama, cancelAgama }: Props) {
+export default observer(function AgamaDetail({ selectedAgama, cancelAgama, openForm }: Props) {
 
 
     return (
@@ -56,15 +57,13 @@ export default observer(function AgamaDetail({ selectedAgama, cancelAgama }: Pro
                                 {selectedAgama.uraian}
                             </List.Item>
                         </List>
-                        <Button basic color='blue' content='Edit' />
+                        <Button onClick={() => openForm(selectedAgama.id)} basic color='blue' content='Edit' />
                         <Button onClick={cancelAgama} basic color='grey' content='Cancel' />
                     </Grid.Column>
                 </Grid>
 
                 <Divider vertical>//</Divider>
             </Segment >
-
-
         </>
     )
 })

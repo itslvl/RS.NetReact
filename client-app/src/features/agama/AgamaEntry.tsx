@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { ChangeEvent, HtmlHTMLAttributes, useEffect, useState } from "react";
 import { useStore } from "../../app/stores/Store";
 import { observer } from "mobx-react-lite";
 import LoadingComponent from "../../app/layout/loadingComponent";
@@ -6,12 +6,15 @@ import { Button, Divider, Form, FormGroup, Grid, Header, Image, Input, Label, Se
 import { AgamaAPI } from "../../app/models/AgamaAPI";
 
 interface Props {
-    selectedAgama : AgamaAPI | undefined;
-    selectAgama : (id : string) => void;
-    cancelAgama : () => void;
+    selectedAgama: AgamaAPI | undefined;
+    selectAgama: (id: string) => void;
+    cancelAgama: () => void;
+    // editMode: boolean;
+    // openForm: (id: string) => void;
+    closeForm: () => void
 }
 
-export default observer(function AgamaEntry({selectAgama, selectedAgama, cancelAgama} : Props) {
+export default observer(function AgamaEntry({ selectAgama, selectedAgama, cancelAgama, closeForm }: Props) {
 
     // const { orgTypeStore } = useStore();
     // const { loadingOrgTypes, orgTypesReg } = orgTypeStore;
@@ -22,17 +25,36 @@ export default observer(function AgamaEntry({selectAgama, selectedAgama, cancelA
 
     // if (orgTypeStore.loadingInitial) return <LoadingComponent content='Loading App' />
 
+    const initialState = selectedAgama ?? {
+        id: '',
+        kode: 0,
+        deleted: 0,
+        uraian: '',
+        timestamp: ''
+    }
+
+    const [agamaForm, setAgamaForm] = useState(initialState);
+
+    function handleSubmit() {
+        console.log(agamaForm);
+    }
+
+    function handleInput(event: ChangeEvent<HTMLInputElement>) {
+
+    }
+
     return (
         <>
             <Header className="ui center aligned header black" as='h1'> ___ ENTRY ___</Header>
             <Segment clearing>
-                <Form>
+                <Form onSubmit={handleSubmit} autoComplete='off'>
                     <Form.Group widths='equal'>
                         <Form.Field
                             // id='form-input-control-first-name'
                             control={Input}
-                            label='Id'
-                            placeholder='Id'
+                            label='Id' placeholder='Id'
+                            value={agamaForm} name='Id'
+                            onChange={handleInput}
                         />
                         <Form.Field
                             // id='form-input-control-first-name'
@@ -64,8 +86,8 @@ export default observer(function AgamaEntry({selectAgama, selectedAgama, cancelA
                         label='Uraian'
                         placeholder='Uraian'
                     />
-                    <Button floated='right' positive type='submit' content='Submit'/>
-                    <Button floated='right'  type='button' content='Cancel'/>
+                    <Button floated='right' positive type='submit' content='Submit' />
+                    <Button onClick={closeForm} floated='right' type='button' content='Cancel' />
                 </Form>
             </Segment>
         </>

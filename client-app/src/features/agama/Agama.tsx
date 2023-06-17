@@ -11,6 +11,7 @@ export default observer(function Agama() {
 
     const [agamas, setAgamas] = useState<AgamaAPI[]>([]);
     const [selectedAgama, setSelectedAgama] = useState<AgamaAPI | undefined>(undefined);
+    const [editMode, setEditMode] = useState(false);
 
     useEffect(() => {
         axios.get<AgamaAPI[]>('http://localhost:5006/agama')
@@ -28,6 +29,14 @@ export default observer(function Agama() {
         setSelectedAgama(undefined)
     }
 
+    function handleOpenForm(id?: string) {
+        id ? handleSelectAgama(id) : handleCancelAgama();
+        setEditMode(true)
+    }
+
+    function handleCloseForm() {
+        setEditMode(false)
+    }
     // const { orgTypeStore } = useStore();
     // const { loadingOrgTypes, orgTypesReg } = orgTypeStore;
 
@@ -48,14 +57,21 @@ export default observer(function Agama() {
             </Grid> */}
             <Grid>
                 <Grid.Column width={16}>
-                    <AgamaEntry selectedAgama={selectedAgama} selectAgama={handleSelectAgama} cancelAgama={handleCancelAgama} />
+                    {/* //Jika editMode = true */}
+                    {editMode &&
+                        <AgamaEntry selectedAgama={selectedAgama}
+                            selectAgama={handleSelectAgama} cancelAgama={handleCancelAgama}
+                            // editMode={editMode} openForm={handleOpenForm}
+                            closeForm={handleCloseForm}
+                        />}
                 </Grid.Column>
                 <Grid.Column width={16}>
-                    {selectedAgama && <AgamaDetail selectedAgama={selectedAgama} cancelAgama={handleCancelAgama} />}
+                    {selectedAgama && !editMode &&
+                     <AgamaDetail selectedAgama={selectedAgama} cancelAgama={handleCancelAgama} openForm={handleOpenForm} />}
                     {/* tapilkan detail agama bila ada nilai agamas[0] */}
                 </Grid.Column>
                 <Grid.Column width={16}>
-                    <AgamaList agamas={agamas} selectAgama={handleSelectAgama} />
+                    <AgamaList  agamas={agamas} selectAgama={handleSelectAgama} openForm={handleOpenForm} />
                 </Grid.Column>
             </Grid>
         </>

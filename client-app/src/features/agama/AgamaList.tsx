@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useStore } from "../../app/stores/Store";
 import { observer } from "mobx-react-lite";
 import LoadingComponent from "../../app/layout/loadingComponent";
-import { Button, Header, Label, List, Table } from "semantic-ui-react";
+import { Button, Header, Icon, Label, List, Table } from "semantic-ui-react";
 import axios from "axios";
 import { AgamaAPI } from "../../app/models/AgamaAPI";
 import AgamaListContent from "./AgamaListContent";
@@ -11,12 +11,20 @@ import { Link } from "react-router-dom";
 interface Props {
     agamas: AgamaAPI[];
     selectAgama: (id: string) => void;
+    openForm: () => void;
 }
-export default observer(function AgamaList({ agamas, selectAgama }: Props) {
+export default observer(function AgamaList({ agamas, selectAgama, openForm }: Props) {
 
     return (
         <>
-            <Header className="ui center aligned header black" as='h1'>___ LIST ___</Header>
+
+            <Header className="ui center aligned header black" as='h1'>
+                ==|  LIST  |==
+                <Label as='a' color="red" corner onClick={openForm}>
+                    <Icon name='add'/>
+                </Label>
+
+            </Header>
             <hr color="red"></hr>
 
             <Table className="ui compact table striped">
