@@ -1,6 +1,6 @@
 export interface AgamaAPI {
     id: string;
-    kode: string
+    kode: number;
     deleted: number;
     uraian: string;
     timeStamp: string;

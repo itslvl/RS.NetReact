@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useStore } from "../../app/stores/Store";
 import { observer } from "mobx-react-lite";
 import LoadingComponent from "../../app/layout/loadingComponent";
-import { Button, Card, Divider, Grid, Header, Icon, Image, Label, List, Segment } from "semantic-ui-react";
+import { Button, Card, Divider, Grid, Header, Icon, Image, Input, Label, List, Segment } from "semantic-ui-react";
 import React from 'react'
 import { AgamaAPI } from "../../app/models/AgamaAPI";
 
@@ -16,6 +16,13 @@ export default observer(function AgamaDetail({ selectedAgama, cancelAgama, openF
 
     return (
         <>
+            <Input
+                icon='tags'
+                iconPosition='left'
+                label={{ tag: true, content: 'Add Tag' }}
+                labelPosition='right'
+                placeholder='Enter tags'
+            />
             <Header className="ui center aligned header black" as='h1'> ___ Detail ___</Header>
             {/* {console.log(selectedAgama)} */}
             <hr color="red"></hr>

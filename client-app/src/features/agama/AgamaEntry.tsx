@@ -11,22 +11,16 @@ interface Props {
     cancelAgama: () => void;
     // editMode: boolean;
     // openForm: (id: string) => void;
-    closeForm: () => void
+    closeForm: () => void;
+    createOrEdit: (agama: AgamaAPI) => void;
+    submitting: boolean
 }
 
-export default observer(function AgamaEntry({ selectAgama, selectedAgama, cancelAgama, closeForm }: Props) {
-
-    // const { orgTypeStore } = useStore();
-    // const { loadingOrgTypes, orgTypesReg } = orgTypeStore;
-
-    // useEffect(() => {
-    //     if (orgTypesReg.size <= 1) loadingOrgTypes();
-    // }, [loadingOrgTypes])
-
-    // if (orgTypeStore.loadingInitial) return <LoadingComponent content='Loading App' />
+export default observer(function AgamaEntry({ selectAgama, selectedAgama,
+    cancelAgama, closeForm, createOrEdit, submitting }: Props) {
 
     const initialState = selectedAgama ?? {
-        id: '1',
+        id: '',
         kode: 0,
         deleted: 0,
         uraian: '',
@@ -36,7 +30,8 @@ export default observer(function AgamaEntry({ selectAgama, selectedAgama, cancel
     const [agamaForm, setAgamaForm] = useState(initialState);
 
     function handleSubmit() {
-        console.log(agamaForm);
+        createOrEdit(agamaForm)
+        // console.log(agamaForm);
     }
 
     function handleInput(event: ChangeEvent<HTMLInputElement>) {
@@ -81,6 +76,7 @@ export default observer(function AgamaEntry({ selectAgama, selectedAgama, cancel
                         control={Input}
                         label='Time Stamp'
                         placeholder='timeStamp'
+                        type='date'
                         value={agamaForm.timeStamp} name='timeStamp'
                         onChange={handleInput}
                     />
@@ -92,7 +88,8 @@ export default observer(function AgamaEntry({ selectAgama, selectedAgama, cancel
                         value={agamaForm.uraian} name='uraian'
                         onChange={handleInput}
                     />
-                    <Button floated='right' positive type='submit' content='Submit' />
+                    <Button loading={submitting} onClick={handleSubmit} floated='right' positive type='submit' content='Submit' />
+                    {/* <Button onClick={handleSubmit} floated='right' positive type='submit' content='Submit' /> */}
                     <Button onClick={closeForm} floated='right' type='button' content='Cancel' />
                 </Form>
             </Segment>

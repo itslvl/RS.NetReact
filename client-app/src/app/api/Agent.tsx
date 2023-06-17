@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { Router } from '../router/Routes';
 import { Store } from '../stores/Store';
 import { User, UserFormValues } from '../models/User';
+import { AgamaAPI } from '../models/AgamaAPI';
 // import { error } from 'console';
 
 const sleep = (delay: number) => {
@@ -75,6 +76,15 @@ const request = {
     delete: <T,>(url: string) => axios.delete<T>(url).then(respondBody)
 }
 
+const Agama = {
+    list: () => request.get<AgamaAPI[]>('/agama'),
+    details: (id: string) => request.get<AgamaAPI>(`/agama/${id}`),
+    create: (agama: AgamaAPI) => request.post<void>('/agama', agama),
+    update: (agama: AgamaAPI) => request.put<void>(`/agama/${agama.id}`, agama),
+    delete: (id: string) => request.delete<void>(`/agama/${id}`)
+
+}
+
 const OrgTypes = {
     list: () => request.get<OrgType[]>('/orgtype'),
     details: (id: string) => request.get<OrgType>(`/orgtype/${id}`),
@@ -89,6 +99,7 @@ const Account = {
     register: (user: UserFormValues) => request.post<User>('/Account/register', user)
 }
 const agent = {
+    Agama,
     OrgTypes,
     Account
 }

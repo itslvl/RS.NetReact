@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useStore } from "../../app/stores/Store";
 import { observer } from "mobx-react-lite";
 import LoadingComponent from "../../app/layout/loadingComponent";
-import { Button, Header, Icon, Label, List, Table } from "semantic-ui-react";
+import { Button, Header, Icon, Input, Label, List, Table } from "semantic-ui-react";
 import axios from "axios";
 import { AgamaAPI } from "../../app/models/AgamaAPI";
 import AgamaListContent from "./AgamaListContent";
@@ -12,16 +12,17 @@ interface Props {
     agamas: AgamaAPI[];
     selectAgama: (id: string) => void;
     openForm: () => void;
+    deleteItem: (id: string) => void;
 }
-export default observer(function AgamaList({ agamas, selectAgama, openForm }: Props) {
+export default observer(function AgamaList({ agamas, selectAgama, openForm, deleteItem }: Props) {
 
     return (
         <>
-
+            <Input icon='users' iconPosition='left' placeholder='Search users...' />
             <Header className="ui center aligned header black" as='h1'>
-                ==|  LIST  |==
+                ==|  LIST  Uji Coba |==
                 <Label as='a' color="red" corner onClick={openForm}>
-                    <Icon name='add'/>
+                    <Icon name='add' />
                 </Label>
 
             </Header>
@@ -35,6 +36,7 @@ export default observer(function AgamaList({ agamas, selectAgama, openForm }: Pr
                         <Table.HeaderCell>Uraian</Table.HeaderCell>
                         <Table.HeaderCell>TimeStamp</Table.HeaderCell>
                         <Table.HeaderCell>Deleted</Table.HeaderCell>
+                        <Table.HeaderCell>Action</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header >
 
@@ -43,14 +45,22 @@ export default observer(function AgamaList({ agamas, selectAgama, openForm }: Pr
 
                         <Table.Row key={agama.id}>
                             <Table.Cell>
-                                <Button onClick={() => selectAgama(agama.id)}>
-                                    {agama.id.substring(0, 7).toUpperCase()}
-                                </Button>
+                                {/* <Button > */}
+                                {agama.id.substring(0, 7).toUpperCase()}
+                                {/* </Button> */}
                             </Table.Cell>
                             <Table.Cell>{agama.kode}</Table.Cell>
                             <Table.Cell>{agama.uraian}</Table.Cell>
                             <Table.Cell>{agama.timeStamp}</Table.Cell>
                             <Table.Cell>{agama.deleted}</Table.Cell>
+                            <Table.Cell>
+                                <Button.Group>
+                                    <Button compact size='mini' positive onClick={() => selectAgama(agama.id)}>Pick</Button>
+                                    <Button.Or />
+                                    <Button size='mini' negative onClick={() => deleteItem(agama.id)}>Del</Button>
+                                </Button.Group>
+                                {/* <Button as='a' onClick={() => deleteItem(agama.id)}>Del</Button> */}
+                            </Table.Cell>
                         </Table.Row>
 
                     ))}

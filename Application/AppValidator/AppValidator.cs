@@ -20,8 +20,8 @@ namespace Application.AppValidator
         public AgamaValidator()
         {
             RuleFor(a => a.Uraian).NotEmpty();
-            RuleFor(a => a.Kode).NotEmpty();
-            RuleFor(a => a.Deleted).NotEmpty();
+            // RuleFor(a => a.Kode).NotEmpty();
+            // RuleFor(a => a.Deleted).NotEmpty();
         }
     }
     public class BahasaValidator : AbstractValidator<Bahasa>
