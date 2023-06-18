@@ -3,9 +3,11 @@ import OrgTypeStore from "./OrgTypeStore";
 import CommonStore from './CommonStore';
 import UserStore from './UserStore';
 import ModalStore from './ModalStore';
+import AgamaStore from './AgamaStore';
     
 
 interface Store {
+    agamaStore: AgamaStore;
     orgTypeStore: OrgTypeStore;
     commonStore : CommonStore;
     userStore : UserStore;
@@ -14,6 +16,7 @@ interface Store {
 }
 
 export const Store: Store = {
+    agamaStore : new AgamaStore(),
     orgTypeStore: new OrgTypeStore(),
     commonStore : new CommonStore(),
     userStore : new UserStore(),

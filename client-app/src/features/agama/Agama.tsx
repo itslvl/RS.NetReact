@@ -4,12 +4,14 @@ import AgamaEntry from "./AgamaEntry";
 import AgamaDetail from "./AgamaDetail";
 import { useEffect, useState } from "react";
 import { AgamaAPI } from "../../app/models/AgamaAPI";
-import { Grid } from "semantic-ui-react";
+import { Button, Grid } from "semantic-ui-react";
 import { v4 as uuid } from 'uuid'
 import agent from "../../app/api/Agent";
 import LoadingComponent from "../../app/layout/loadingComponent";
+import { useStore } from "../../app/stores/Store";
 
 export default observer(function Agama() {
+    const {agamaStore} = useStore()
 
     const [agamas, setAgamas] = useState<AgamaAPI[]>([]);
     const [selectedAgama, setSelectedAgama] = useState<AgamaAPI | undefined>(undefined);
@@ -107,6 +109,8 @@ export default observer(function Agama() {
                 <AgamaList agamas={agamas} />
 
             </Grid> */}
+            <h2>{agamaStore.uraian}</h2>
+            <Button content='add exclamation' positive onClick={agamaStore.setTitle} />
             <Grid>
                 <Grid.Column width={16}>
                     {/* //Jika editMode = true */}
