@@ -1,14 +1,19 @@
-import { observer } from "mobx-react-lite";
 import { Button, Divider, Grid, Header, Label, List, Segment } from "semantic-ui-react";
-import { AgamaAPI } from "../../app/models/AgamaAPI";
+import { useStore } from "../../app/stores/Store";
+import LoadingComponent from "../../app/layout/loadingComponent";
+import { observer } from "mobx-react-lite";
 
-interface Props {
-    selectedAgama: AgamaAPI;
-    cancelAgama: () => void;
-    openForm: (id: string) => void;
-}
-export default observer(function AgamaDetail({ selectedAgama, cancelAgama, openForm }: Props) {
+// interface Props {
+// selectedAgama: AgamaAPI;
+// cancelAgama: () => void;
+// openForm: (id: string) => void;
+// }
+export default observer(function AgamaDetail() {
 
+    const { agamaStore } = useStore()
+    const { selectedAgama: agama, openForm, cancelAgama } = agamaStore
+
+    if (!agama) return <LoadingComponent />
 
     return (
         <>
@@ -23,19 +28,19 @@ export default observer(function AgamaDetail({ selectedAgama, cancelAgama, openF
                                 <Label color='green' horizontal style={{ width: '6em' }} >
                                     Id
                                 </Label>
-                                {selectedAgama.id}
+                                {agama.id}
+                            </List.Item>
+                            <List.Item>
+                                <Label color='grey' horizontal style={{ width: '6em' }} >
+                                    Deleted
+                                </Label>
+                                {agama.kode}
                             </List.Item>
                             <List.Item>
                                 <Label color='grey' horizontal style={{ width: '6em' }} >
                                     Kode
                                 </Label>
-                                {selectedAgama.kode}
-                            </List.Item>
-                            <List.Item>
-                                <Label color='grey' horizontal style={{ width: '6em' }} >
-                                    Kode
-                                </Label>
-                                {selectedAgama.kode}
+                                {agama.deleted}
                             </List.Item>
                         </List>
                     </Grid.Column>
@@ -45,17 +50,17 @@ export default observer(function AgamaDetail({ selectedAgama, cancelAgama, openF
                                 <Label color='grey' horizontal style={{ width: '6em' }} >
                                     Time Stamp
                                 </Label>
-                                {selectedAgama.timeStamp}
+                                {agama.timeStamp}
                             </List.Item>
                             <List.Item>
                                 <Label color='grey' horizontal style={{ width: '6em' }} >
                                     Uraian
                                 </Label>
-                                {selectedAgama.uraian}
+                                {agama.uraian}
                             </List.Item>
                         </List>
-                        <Button onClick={() => openForm(selectedAgama.id)} basic color='blue' content='Edit' />
-                        <Button onClick={cancelAgama} basic color='grey' content='Cancel' />
+                        <Button onClick={() => openForm(agama.id)} basic color='blue' content='Edit' />
+                        <Button onClick={() => cancelAgama()} basic color='grey' content='Cancel' />
                     </Grid.Column>
                 </Grid>
 

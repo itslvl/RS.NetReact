@@ -1,23 +1,24 @@
-import { ChangeEvent, HtmlHTMLAttributes, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useStore } from "../../app/stores/Store";
 import { observer } from "mobx-react-lite";
-import LoadingComponent from "../../app/layout/loadingComponent";
-import { Button, Divider, Form, FormGroup, Grid, Header, Image, Input, Label, Segment, TextArea } from "semantic-ui-react";
-import { AgamaAPI } from "../../app/models/AgamaAPI";
+import { Button, Form, Header, Input, Segment, TextArea } from "semantic-ui-react";
 
-interface Props {
-    selectedAgama: AgamaAPI | undefined;
-    selectAgama: (id: string) => void;
-    cancelAgama: () => void;
-    // editMode: boolean;
-    // openForm: (id: string) => void;
-    closeForm: () => void;
-    createOrEdit: (agama: AgamaAPI) => void;
-    submitting: boolean
-}
+// interface Props {
+//     // selectedAgama: AgamaAPI | undefined;
+//     // selectAgama: (id: string) => void;
+//     // cancelAgama: () => void;
+//     // editMode: boolean;
+//     // openForm: (id: string) => void;
+//     // closeForm: () => void;
+//     createOrEdit: (agama: AgamaAPI) => void;
+//     submitting: boolean
+// }
 
-export default observer(function AgamaEntry({ selectAgama, selectedAgama,
-    cancelAgama, closeForm, createOrEdit, submitting }: Props) {
+export default observer(function AgamaEntry() {
+
+    const { agamaStore } = useStore();
+    const { selectedAgama, closeForm, createAgama, updateAgama,
+        loading } = agamaStore
 
     const initialState = selectedAgama ?? {
         id: '',
@@ -30,7 +31,8 @@ export default observer(function AgamaEntry({ selectAgama, selectedAgama,
     const [agamaForm, setAgamaForm] = useState(initialState);
 
     function handleSubmit() {
-        createOrEdit(agamaForm)
+        agamaForm.id ? updateAgama(agamaForm) : createAgama( agamaForm)
+        // createOrEdit(agamaForm)
         // console.log(agamaForm);
     }
 
@@ -88,12 +90,11 @@ export default observer(function AgamaEntry({ selectAgama, selectedAgama,
                         value={agamaForm.uraian} name='uraian'
                         onChange={handleInput}
                     />
-                    <Button loading={submitting} onClick={handleSubmit} floated='right' positive type='submit' content='Submit' />
+                    <Button loading={loading} onClick={handleSubmit} floated='right' positive type='submit' content='Submit' />
                     {/* <Button onClick={handleSubmit} floated='right' positive type='submit' content='Submit' /> */}
                     <Button onClick={closeForm} floated='right' type='button' content='Cancel' />
                 </Form>
             </Segment>
         </>
     )
-}
-)
+})

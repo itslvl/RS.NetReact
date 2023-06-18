@@ -1,33 +1,31 @@
-import { SyntheticEvent, useEffect, useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import { useStore } from "../../app/stores/Store";
+import { Button, Header, Icon, Label, Table } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
-import LoadingComponent from "../../app/layout/loadingComponent";
-import { Button, Header, Icon, Input, Label, List, Table } from "semantic-ui-react";
-import axios from "axios";
-import { AgamaAPI } from "../../app/models/AgamaAPI";
-import AgamaListContent from "./AgamaListContent";
-import { Link } from "react-router-dom";
 
-interface Props {
-    agamas: AgamaAPI[];
-    selectAgama: (id: string) => void;
-    openForm: () => void;
-    deleteItem: (id: string, timeStamp: string) => void;
-    submitting: boolean
-}
-export default observer(function AgamaList({ agamas, selectAgama, openForm, deleteItem, submitting }: Props) {
+// interface Props {
+//     agamas: AgamaAPI[];
+//     // selectAgama: (id: string) => void;
+//     // openForm: () => void;
+//     deleteItem: (id: string, timeStamp: string) => void;
+//     submitting: boolean
+// }
+export default observer(function AgamaList() {
 
+    const { agamaStore } = useStore()
+    const {deleteAgama, agamas, loading} = agamaStore
     const [target, setTarget] = useState('')
 
     function handleDeleteItem(e: SyntheticEvent<HTMLButtonElement>, id: string, timeStamp: string) {
         setTarget(e.currentTarget.name)
-        deleteItem(id, timeStamp)
+        deleteAgama(id, timeStamp)
     }
+
     return (
         <>
             <Header className="ui center aligned header black" as='h1'>
                 ==|  LIST  Uji Coba |==
-                <Label as='a' color="red" corner onClick={openForm}>
+                <Label as='a' color="red" corner onClick={() => agamaStore.openForm()}>
                     <Icon name='add' />
                 </Label>
 
@@ -62,9 +60,9 @@ export default observer(function AgamaList({ agamas, selectAgama, openForm, dele
                             <Table.Cell>
                                 <Button.Group>
                                     <Button compact size='mini' positive
-                                        onClick={() => selectAgama(agama.id)}>Pick</Button>
+                                        onClick={() => agamaStore.selectAgama(agama.id)}>Pick</Button>
                                     <Button.Or />
-                                    <Button name={agama.id} loading={submitting && target === agama.id}
+                                    <Button name={agama.id} loading={loading && target === agama.id}
                                         size='mini' negative
                                         onClick={(e) => handleDeleteItem(e, agama.id, agama.timeStamp)}>Del</Button>
                                 </Button.Group>
@@ -79,5 +77,4 @@ export default observer(function AgamaList({ agamas, selectAgama, openForm, dele
             sedangkan {agamas} adalah diambil dari useState */}
         </>
     )
-}
-)
+})
