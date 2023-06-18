@@ -21,7 +21,7 @@ export default observer(function Agama() {
         agent.Agama.list().then(response => {
             let agamas: AgamaAPI[] = [];
             response.forEach(agama => {
-                agama.timeStamp = agama.timeStamp.split('T')[0];
+                // agama.timeStamp = agama.timeStamp.split('T')[0];
                 agamas.push(agama);
             })
             setAgamas(agamas)
@@ -52,8 +52,14 @@ export default observer(function Agama() {
         setEditMode(false)
     }
 
-    function handleDelete(id: string) {
-        setAgamas([...agamas.filter(x => x.id != id)])
+    function handleDelete(id: string, timeStamp: string) {
+        setSubmitting(true);
+        agent.Agama.delete(id, timeStamp).then(() => {
+            setAgamas([...agamas.filter(x => x.id != id)])
+            // setEditMode(false);
+            setSubmitting(false);
+        })
+        // setAgamas([...agamas.filter(x => x.id != id)])
     }
 
     function handelCreateOrEdit(agama: AgamaAPI) {
@@ -67,6 +73,7 @@ export default observer(function Agama() {
             })
         } else {
             agama.id = uuid()
+            agama.timeStamp = new Date().toISOString()
             agent.Agama.create(agama).then(() => {
                 setAgamas([...agamas, agama])
                 setSelectedAgama(agama);
@@ -119,7 +126,7 @@ export default observer(function Agama() {
                 </Grid.Column>
                 <Grid.Column width={16}>
                     <AgamaList agamas={agamas} selectAgama={handleSelectAgama}
-                        openForm={handleOpenForm} deleteItem={handleDelete} />
+                        submitting={submitting} openForm={handleOpenForm} deleteItem={handleDelete} />
                 </Grid.Column>
             </Grid>
         </>

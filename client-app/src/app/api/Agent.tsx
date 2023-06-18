@@ -6,6 +6,7 @@ import { Router } from '../router/Routes';
 import { Store } from '../stores/Store';
 import { User, UserFormValues } from '../models/User';
 import { AgamaAPI } from '../models/AgamaAPI';
+// import { timeStamp } from 'console';
 // import { error } from 'console';
 
 const sleep = (delay: number) => {
@@ -52,8 +53,9 @@ axios.interceptors.response.use(async response => {
             toast.error('forbidden')
             break;
         case 404:
-            // toast.error('not found')
-            Router.navigate('/not-found');
+            toast.error('not found')
+            console.log(error)
+            // Router.navigate('/not-found');
             break;
         case 500:
             // toast.error('server error')
@@ -81,7 +83,7 @@ const Agama = {
     details: (id: string) => request.get<AgamaAPI>(`/agama/${id}`),
     create: (agama: AgamaAPI) => request.post<void>('/agama', agama),
     update: (agama: AgamaAPI) => request.put<void>(`/agama/${agama.id}`, agama),
-    delete: (id: string) => request.delete<void>(`/agama/${id}`)
+    delete: (id: string, timeStamp: string) => request.delete<void>(`/agama/${id}/${timeStamp}`)
 
 }
 

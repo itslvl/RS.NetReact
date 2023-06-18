@@ -35,10 +35,10 @@ namespace API.Controllers
             return HandleResult(await Mediator.Send(new Edit.Command { Agama = agama }));
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAgama(Guid id)
+        [HttpDelete("{id}/{timeStamp}")]
+        public async Task<IActionResult> DeleteAgama(Guid id, string timeStamp)
         {
-            return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
+            return HandleResult(await Mediator.Send(new Delete.Command { Id = id, TimeStamp = timeStamp }));
         }
 
     }

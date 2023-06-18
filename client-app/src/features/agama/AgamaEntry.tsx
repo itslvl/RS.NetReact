@@ -71,7 +71,7 @@ export default observer(function AgamaEntry({ selectAgama, selectedAgama,
                             onChange={handleInput}
                         />
                     </Form.Group>
-                    <Form.Field
+                    {/* <Form.Field
                         // id='form-input-control-first-deleted'
                         control={Input}
                         label='Time Stamp'
@@ -79,7 +79,7 @@ export default observer(function AgamaEntry({ selectAgama, selectedAgama,
                         type='date'
                         value={agamaForm.timeStamp} name='timeStamp'
                         onChange={handleInput}
-                    />
+                    /> */}
                     <Form.Field
                         id='form-textarea-control-opinion'
                         control={TextArea}

@@ -29,6 +29,7 @@ namespace Application.AppAgama
             public async Task<Result<List<AgamaDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var r = await _context.Agama
+                    .Where( c => c.Deleted ==0)
                     // .Include(a => a.OrgType)
                     .ProjectTo<AgamaDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);

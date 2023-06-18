@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import { useStore } from "../../app/stores/Store";
 import { observer } from "mobx-react-lite";
 import LoadingComponent from "../../app/layout/loadingComponent";
@@ -12,13 +12,19 @@ interface Props {
     agamas: AgamaAPI[];
     selectAgama: (id: string) => void;
     openForm: () => void;
-    deleteItem: (id: string) => void;
+    deleteItem: (id: string, timeStamp: string) => void;
+    submitting: boolean
 }
-export default observer(function AgamaList({ agamas, selectAgama, openForm, deleteItem }: Props) {
+export default observer(function AgamaList({ agamas, selectAgama, openForm, deleteItem, submitting }: Props) {
 
+    const [target, setTarget] = useState('')
+
+    function handleDeleteItem(e: SyntheticEvent<HTMLButtonElement>, id: string, timeStamp: string) {
+        setTarget(e.currentTarget.name)
+        deleteItem(id, timeStamp)
+    }
     return (
         <>
-            <Input icon='users' iconPosition='left' placeholder='Search users...' />
             <Header className="ui center aligned header black" as='h1'>
                 ==|  LIST  Uji Coba |==
                 <Label as='a' color="red" corner onClick={openForm}>
@@ -34,7 +40,7 @@ export default observer(function AgamaList({ agamas, selectAgama, openForm, dele
                         <Table.HeaderCell>Id</Table.HeaderCell>
                         <Table.HeaderCell>Kode</Table.HeaderCell>
                         <Table.HeaderCell>Uraian</Table.HeaderCell>
-                        <Table.HeaderCell>TimeStamp</Table.HeaderCell>
+                        {/* <Table.HeaderCell>TimeStamp</Table.HeaderCell> */}
                         <Table.HeaderCell>Deleted</Table.HeaderCell>
                         <Table.HeaderCell>Action</Table.HeaderCell>
                     </Table.Row>
@@ -51,18 +57,20 @@ export default observer(function AgamaList({ agamas, selectAgama, openForm, dele
                             </Table.Cell>
                             <Table.Cell>{agama.kode}</Table.Cell>
                             <Table.Cell>{agama.uraian}</Table.Cell>
-                            <Table.Cell>{agama.timeStamp}</Table.Cell>
+                            {/* <Table.Cell>{agama.timeStamp}</Table.Cell> */}
                             <Table.Cell>{agama.deleted}</Table.Cell>
                             <Table.Cell>
                                 <Button.Group>
-                                    <Button compact size='mini' positive onClick={() => selectAgama(agama.id)}>Pick</Button>
+                                    <Button compact size='mini' positive
+                                        onClick={() => selectAgama(agama.id)}>Pick</Button>
                                     <Button.Or />
-                                    <Button size='mini' negative onClick={() => deleteItem(agama.id)}>Del</Button>
+                                    <Button name={agama.id} loading={submitting && target === agama.id}
+                                        size='mini' negative
+                                        onClick={(e) => handleDeleteItem(e, agama.id, agama.timeStamp)}>Del</Button>
                                 </Button.Group>
                                 {/* <Button as='a' onClick={() => deleteItem(agama.id)}>Del</Button> */}
                             </Table.Cell>
                         </Table.Row>
-
                     ))}
                 </Table.Body>
             </Table >
