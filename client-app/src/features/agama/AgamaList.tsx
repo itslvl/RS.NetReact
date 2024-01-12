@@ -24,7 +24,7 @@ export default observer(function AgamaList() {
     return (
         <>
             <Header className="ui center aligned header black" as='h1'>
-                ==|  LIST  Uji Coba |==
+                List {`{A}`}gama
                 <Label as='a' color="red" corner onClick={() => agamaStore.openForm()}>
                     <Icon name='add' />
                 </Label>
@@ -36,8 +36,8 @@ export default observer(function AgamaList() {
                 <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell>Id</Table.HeaderCell>
-                        <Table.HeaderCell>Kode</Table.HeaderCell>
-                        <Table.HeaderCell>Uraian</Table.HeaderCell>
+                        <Table.HeaderCell>Code</Table.HeaderCell>
+                        <Table.HeaderCell>Description</Table.HeaderCell>
                         {/* <Table.HeaderCell>TimeStamp</Table.HeaderCell> */}
                         <Table.HeaderCell>Deleted</Table.HeaderCell>
                         <Table.HeaderCell>Action</Table.HeaderCell>
