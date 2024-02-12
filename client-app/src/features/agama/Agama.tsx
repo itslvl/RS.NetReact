@@ -10,6 +10,7 @@ import { useStore } from "../../app/stores/Store";
 export default observer(function Agama() {
     const { agamaStore } = useStore()
 
+    
     // const [agamas, setAgamas] = useState<AgamaAPI[]>([]);
     // const [selectedAgama, setSelectedAgama] = useState<AgamaAPI | undefined>(undefined);
     // const [editMode, setEditMode] = useState(false);
