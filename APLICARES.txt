@@ -1,0 +1,30 @@
+Referensi Kamar:
+{Base URL}/aplicaresws/rest/ref/kelas
+{Base URL} : https://new-api.bpjs-kesehatan.go.id
+
+Ketersediaan Kamar RS:
+{Base URL}/aplicaresws/rest/bed/read/{kodeppk}/{start}/{limit}
+{Base URL} : https://new-api.bpjs-kesehatan.go.id
+{kodeppk} : 0210R001
+{start} : 1
+{limit} : 100
+
+
+Update Ketersediaan Kamar:
+{Base URL}/aplicaresws/rest/bed/update/{kodeppk}
+{Base URL} : https://new-api.bpjs-kesehatan.go.id
+{kodeppk} : 0210R001
+
+Body:
+{ 
+    "kodekelas":"VIP", 
+    "koderuang":"6.2.5", 
+    "namaruang":"Ruang Rawat Raflesia", 
+    "kapasitas":"12", 
+    "tersedia":"3",
+    "tersediapria":"0", 
+    "tersediawanita":"0", 
+    "tersediapriawanita":"0"
+   }
+
+di body >> Yang berubah kapasitas dan tersedia
